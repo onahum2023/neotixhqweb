@@ -10,6 +10,7 @@ interface AuthState {
   user: User | null;
   session: Session | null;
   isAdmin: boolean;
+  adminChecked: boolean;
   signOut: () => Promise<void>;
 }
 
@@ -19,26 +20,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adminChecked, setAdminChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const queryClient = useQueryClient();
 
   useEffect(() => {
+    const checkAdmin = async (userId: string) => {
+      setAdminChecked(false);
+      const { data, error } = await supabase.rpc("has_role", {
+        _user_id: userId,
+        _role: "admin",
+      });
+      if (error) console.error("has_role check failed", error);
+      setIsAdmin(!!data);
+      setAdminChecked(true);
+    };
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
       setUser(newSession?.user ?? null);
-      if (!newSession) setIsAdmin(false);
-      else {
-        // defer to avoid deadlock
-        setTimeout(async () => {
-          const { data } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", newSession.user.id)
-            .eq("role", "admin")
-            .maybeSingle();
-          setIsAdmin(!!data);
-        }, 0);
+      if (!newSession) {
+        setIsAdmin(false);
+        setAdminChecked(true);
+      } else {
+        setTimeout(() => { checkAdmin(newSession.user.id); }, 0);
       }
       router.invalidate();
       queryClient.invalidateQueries();
@@ -48,13 +54,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(s);
       setUser(s?.user ?? null);
       if (s) {
-        const { data } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", s.user.id)
-          .eq("role", "admin")
-          .maybeSingle();
-        setIsAdmin(!!data);
+        await checkAdmin(s.user.id);
+      } else {
+        setAdminChecked(true);
       }
       setIsLoading(false);
     });
@@ -74,6 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         session,
         isAdmin,
+        adminChecked,
         signOut,
       }}
     >

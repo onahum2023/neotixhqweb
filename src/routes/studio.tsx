@@ -14,7 +14,7 @@ export const Route = createFileRoute("/studio")({
 });
 
 function StudioLayout() {
-  const { isAuthenticated, isAdmin, isLoading, user, signOut } = useAuth();
+  const { isAuthenticated, isAdmin, isLoading, adminChecked, user, signOut } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function StudioLayout() {
     if (!isAuthenticated) navigate({ to: "/login" });
   }, [isLoading, isAuthenticated, navigate]);
 
-  if (isLoading) {
+  if (isLoading || (isAuthenticated && !adminChecked)) {
     return (
       <main className="min-h-screen flex items-center justify-center text-sm text-muted-foreground">
         Loading…
