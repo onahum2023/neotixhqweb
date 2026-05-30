@@ -5,6 +5,7 @@ import { Vision } from "@/components/neotix/Vision";
 import { Positioning } from "@/components/neotix/Positioning";
 import { Products } from "@/components/neotix/Products";
 import { Philosophy } from "@/components/neotix/Philosophy";
+import { FieldNotes } from "@/components/neotix/FieldNotes";
 import { ClosingCTA } from "@/components/neotix/ClosingCTA";
 import { Footer } from "@/components/neotix/Footer";
 import { CoreDivider } from "@/components/neotix/CoreDivider";
@@ -43,6 +44,8 @@ function Index() {
       <Products />
       <CoreDivider />
       <Philosophy />
+      <CoreDivider />
+      <FieldNotes />
       <ClosingCTA />
       <Footer />
     </main>

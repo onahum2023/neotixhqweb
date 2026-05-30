@@ -62,6 +62,7 @@ export function Footer() {
             <li><a href="#vision" className="hover:text-foreground transition-colors">Vision</a></li>
             <li><a href="#principles" className="hover:text-foreground transition-colors">Principles</a></li>
             <li><a href="#studio" className="hover:text-foreground transition-colors">Studio</a></li>
+            <li><a href="#field-notes" className="hover:text-foreground transition-colors">Field Notes</a></li>
             <li><a href="#contact" className="hover:text-foreground transition-colors">Contact</a></li>
           </Column>
           <Column label="Systems">
