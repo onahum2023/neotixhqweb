@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/neotix/Nav";
 import { Hero } from "@/components/neotix/Hero";
+import { Mission } from "@/components/neotix/Mission";
 import { Vision } from "@/components/neotix/Vision";
 import { Positioning } from "@/components/neotix/Positioning";
 import { Products } from "@/components/neotix/Products";
@@ -36,6 +37,8 @@ function Index() {
     <main className="relative min-h-screen bg-background text-foreground">
       <Nav />
       <Hero />
+      <BeamDivider />
+      <Mission />
       <BeamDivider />
       <Vision />
       <BeamDivider />
