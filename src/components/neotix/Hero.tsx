@@ -5,7 +5,7 @@ import { Mission } from "./Mission";
 
 export function Hero() {
   return (
-    <section id="top" className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 overflow-hidden">
+    <section id="top" className="relative pt-32 pb-16 lg:pt-44 lg:pb-20 overflow-hidden">
       <div className="absolute inset-0 bg-grid-soft mask-fade-edges opacity-70" />
       <div
         className="absolute inset-0 pointer-events-none"
