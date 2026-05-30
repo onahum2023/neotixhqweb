@@ -37,10 +37,8 @@ function Index() {
     <main className="relative min-h-screen bg-background text-foreground">
       <Nav />
       <Hero />
-      <BeamDivider />
-      <Mission />
-      <BeamDivider />
       <Vision />
+
       <BeamDivider />
       <Positioning />
       <BeamDivider />
