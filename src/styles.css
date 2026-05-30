@@ -20,6 +20,8 @@
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
   --color-surface-alt: var(--surface-alt);
+  --color-surface-deep: var(--surface-deep);
+  --color-surface-warm: var(--surface-warm);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
