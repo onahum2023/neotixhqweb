@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "NeotixHQ is an AI-native product company building cognitive systems that turn fragmented information, conversations, and workflows into structured context and better decisions.",
+          "NeotixHQ is an AI-native product studio building cognitive systems that turn fragmented information into structured context and better decisions.",
       },
       { property: "og:title", content: "NeotixHQ — Cognitive systems for better decisions" },
       {

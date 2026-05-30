@@ -94,11 +94,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "NeotixHQ" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "NeotixHQ — Cognitive systems for better decisions" },
-      { name: "description", content: "NeotixHQ builds AI-native cognitive systems that transform fragmented information into structured context and better decisions." },
-      { property: "og:description", content: "NeotixHQ builds AI-native cognitive systems that transform fragmented information into structured context and better decisions." },
-      { name: "twitter:description", content: "NeotixHQ builds AI-native cognitive systems that transform fragmented information into structured context and better decisions." },
+      {
+        name: "twitter:description",
+        content:
+          "AI-native products that transform fragmented work into structured intelligence.",
+      },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/25aa1acb-e90f-4722-9784-a4075a0df138/id-preview-66396729--1e2ab344-6cef-4fed-aeb5-8c3bf921be34.lovable.app-1780126119359.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/25aa1acb-e90f-4722-9784-a4075a0df138/id-preview-66396729--1e2ab344-6cef-4fed-aeb5-8c3bf921be34.lovable.app-1780126119359.png" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "NeotixHQ",
+              url: "https://neotixhq.com",
+              description:
+                "An AI-native product studio building cognitive systems for better decisions.",
+            },
+            {
+              "@type": "WebSite",
+              name: "NeotixHQ",
+              url: "https://neotixhq.com",
+            },
+          ],
+        }),
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
