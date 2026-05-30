@@ -2,7 +2,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { listAllFieldNotes, deleteFieldNote } from "@/lib/field-notes.functions";
+import {
+  listAllFieldNotes,
+  deleteFieldNote,
+  setFieldNoteStatus,
+} from "@/lib/field-notes.functions";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/studio/")({
