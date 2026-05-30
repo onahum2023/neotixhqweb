@@ -1,6 +1,7 @@
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { listPublishedFieldNotes } from "@/lib/field-notes.functions";
+import { SectionGraphics } from "./SectionGraphics";
 
 const placeholderNotes = [
   {
