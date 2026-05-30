@@ -5,7 +5,7 @@ export function Vision() {
   return (
     <section
       id="vision"
-      className="relative py-24 lg:py-36 overflow-hidden"
+      className="relative py-14 lg:py-20 overflow-hidden"
       style={{ backgroundColor: "var(--color-surface-deep)" }}
     >
       <div className="absolute inset-0 bg-atmos-violet opacity-60 pointer-events-none" />
