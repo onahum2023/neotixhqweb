@@ -12,11 +12,11 @@ export function ClosingCTA() {
           <NeotixMark size={56} glow />
         </div>
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-balance">
-          Products for people who work with too much information and too little context.
+          The next wave of AI will not be defined by more answers.
         </h2>
         <p className="mt-8 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          NeotixHQ builds AI-native systems that help people and teams convert fragmented work
-          into structured intelligence.
+          It will be defined by systems that understand context, preserve continuity, and
+          improve how people make decisions.
         </p>
         <div className="mt-12">
           <a
