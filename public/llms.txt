@@ -1,0 +1,9 @@
+# NeotixHQ
+
+> An AI-native product studio building cognitive systems that turn fragmented information, conversations, and workflows into structured context and better decisions.
+
+NeotixHQ is the umbrella company behind early-stage systems including Meridian (temporal memory) and Augment-Labs (AI-assisted hiring). The site is a single-page manifesto outlining the company's thesis on the cognitive layer of work.
+
+## Pages
+
+- [Home](/): NeotixHQ vision, principles, studio explorations, and contact.
