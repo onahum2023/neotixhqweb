@@ -8,8 +8,8 @@ const principles = [
     body: "We build around real operational friction, not isolated AI tricks.",
   },
   {
-    title: "Memory over chat history",
-    body: "We believe the next layer of AI needs structured continuity, not disposable conversations.",
+    title: "Continuity over fragments",
+    body: "We believe the next layer of AI needs persistent context, not disposable interactions.",
   },
   {
     title: "Decisions over answers",

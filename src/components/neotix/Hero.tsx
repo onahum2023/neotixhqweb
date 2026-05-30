@@ -19,8 +19,8 @@ export function Hero() {
             Building the cognitive layer of work.
           </h1>
           <p className="mt-7 text-lg text-muted-foreground max-w-xl leading-relaxed">
-            NeotixHQ designs AI-native systems that help people turn fragmented conversations,
-            workflows, signals, and decisions into structured context and better action.
+            NeotixHQ designs AI-native systems that turn fragmented conversations, workflows,
+            and signals into structured context for better decisions and action.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a

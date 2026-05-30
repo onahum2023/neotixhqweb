@@ -20,7 +20,7 @@ export function Vision() {
             signals into useful context that people can trust, revisit, and act on.
           </p>
           <p className="text-foreground">
-            NeotixHQ exists to build that missing cognitive layer.
+            NeotixHQ exists to build the layer between information and judgment.
           </p>
         </div>
       </div>
