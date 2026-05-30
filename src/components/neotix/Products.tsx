@@ -48,7 +48,19 @@ function SystemCard({ name, label, tagline, description, status, visual }: Syste
 
 export function Products() {
   return (
-    <section id="studio" className="relative py-24 lg:py-32 border-t border-border">
+    <section
+      id="studio"
+      className="relative py-24 lg:py-32 overflow-hidden"
+      style={{ backgroundColor: "var(--color-surface-deep)" }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 60% at 10% 30%, oklch(0.66 0.22 295 / 0.10), transparent 60%)",
+        }}
+      />
+      <div className="absolute inset-0 bg-grid-soft opacity-30 pointer-events-none mask-fade-edges" />
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
