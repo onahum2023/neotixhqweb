@@ -140,6 +140,43 @@ export const upsertFieldNote = createServerFn({ method: "POST" })
     return { note: inserted };
   });
 
+// Admin — set status (quick publish/unpublish)
+export const setFieldNoteStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { id: string; status: "draft" | "published" }) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        status: z.enum(["draft", "published"]),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+
+    let publishedAt: string | null = null;
+    if (data.status === "published") {
+      const { data: existing } = await supabaseAdmin
+        .from("field_notes")
+        .select("published_at, status")
+        .eq("id", data.id)
+        .maybeSingle();
+      publishedAt =
+        existing?.status === "published" && existing.published_at
+          ? existing.published_at
+          : new Date().toISOString();
+    }
+
+    const { data: updated, error } = await supabaseAdmin
+      .from("field_notes")
+      .update({ status: data.status, published_at: publishedAt })
+      .eq("id", data.id)
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return { note: updated };
+  });
+
 // Admin — delete
 export const deleteFieldNote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
