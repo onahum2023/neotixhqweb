@@ -14,7 +14,15 @@ type SystemProps = {
 
 function SystemCard({ name, label, tagline, description, status, visual }: SystemProps) {
   return (
-    <article className="group relative rounded-xl border border-border bg-surface/30 backdrop-blur p-5 transition-all hover:border-accent/30 hover:bg-surface/60">
+    <article className="group relative rounded-xl border border-white/[0.06] bg-surface-deep p-5 shadow-card transition-all hover:border-accent/40 hover-glow-cyan overflow-hidden">
+      {/* left-edge violet beam accent */}
+      <div
+        className="absolute inset-y-4 left-0 w-px opacity-60"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent, oklch(0.66 0.22 295 / 0.6), transparent)",
+        }}
+      />
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
           {label}
@@ -40,8 +48,20 @@ function SystemCard({ name, label, tagline, description, status, visual }: Syste
 
 export function Products() {
   return (
-    <section id="studio" className="relative py-24 lg:py-32 border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+    <section
+      id="studio"
+      className="relative py-24 lg:py-32 overflow-hidden"
+      style={{ backgroundColor: "var(--color-surface-deep)" }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 60% at 10% 30%, oklch(0.66 0.22 295 / 0.10), transparent 60%)",
+        }}
+      />
+      <div className="absolute inset-0 bg-grid-soft opacity-30 pointer-events-none mask-fade-edges" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
             Studio

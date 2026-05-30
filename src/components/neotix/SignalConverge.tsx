@@ -1,34 +1,45 @@
 /**
- * Hero visual — fragmented signals on the left converge through a
- * waypoint into the Neotix Core on the right. The Core is the brand
- * device: a geometric N described by corner nodes, a violet→cyan
- * diagonal beam, and a structured center.
+ * Hero visual — fragmented information particles drift on the left and
+ * are gently absorbed into the Neotix Core on the right. The Core is the
+ * brand device: a geometric N described by corner nodes, a violet→cyan
+ * diagonal beam, and a structured center waypoint.
+ *
+ * Design intent: signals as floating context particles being organized,
+ * NOT as projectiles aimed at a target.
  */
+type Fragment = {
+  type: "arc" | "dot" | "glyph-bracket" | "glyph-cross" | "glyph-square";
+  x: number;
+  y: number;
+  delay: number;
+  scale?: number;
+};
+
 export function SignalConverge() {
-  const fragments = [
-    { x: 20, y: 50, len: 30, delay: 0 },
-    { x: 50, y: 95, len: 22, delay: 0.6 },
-    { x: 10, y: 150, len: 36, delay: 1.2 },
-    { x: 60, y: 200, len: 20, delay: 0.3 },
-    { x: 30, y: 248, len: 28, delay: 1.8 },
-    { x: 80, y: 300, len: 26, delay: 0.9 },
-    { x: 40, y: 348, len: 24, delay: 2.2 },
-    { x: 95, y: 70, len: 18, delay: 1.5 },
-    { x: 72, y: 130, len: 22, delay: 0.4 },
-    { x: 25, y: 320, len: 16, delay: 1.7 },
+  const fragments: Fragment[] = [
+    { type: "arc", x: 30, y: 60, delay: 0 },
+    { type: "dot", x: 70, y: 100, delay: 0.6 },
+    { type: "glyph-bracket", x: 20, y: 145, delay: 1.2 },
+    { type: "arc", x: 95, y: 185, delay: 0.3, scale: 0.8 },
+    { type: "glyph-cross", x: 40, y: 230, delay: 1.8 },
+    { type: "dot", x: 80, y: 270, delay: 0.9 },
+    { type: "glyph-square", x: 30, y: 310, delay: 2.2 },
+    { type: "arc", x: 110, y: 80, delay: 1.5, scale: 0.7 },
+    { type: "dot", x: 60, y: 340, delay: 0.4 },
+    { type: "glyph-bracket", x: 100, y: 250, delay: 1.7, scale: 0.85 },
+    { type: "dot", x: 130, y: 160, delay: 2.4 },
+    { type: "arc", x: 50, y: 200, delay: 1.0, scale: 0.9 },
   ];
 
-  // Neotix Core geometry — a large geometric N
+  // Neotix Core geometry
   const cx = 360;
   const cy = 200;
-  const r = 90; // half-size of the N square
+  const r = 90;
   const nTL = { x: cx - r, y: cy - r };
   const nBL = { x: cx - r, y: cy + r };
   const nTR = { x: cx + r, y: cy - r };
   const nBR = { x: cx + r, y: cy + r };
   const waypoint = { x: cx, y: cy };
-  // Entry waypoint where fragmented signals fold into the core
-  const entry = { x: cx - r - 30, y: cy };
 
   return (
     <div className="relative w-full aspect-square max-w-[560px] mx-auto">
@@ -43,10 +54,10 @@ export function SignalConverge() {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id="conv-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.05" />
-            <stop offset="70%" stopColor="#8B5CF6" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.9" />
+          <linearGradient id="conv-trail" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#F4F1EA" stopOpacity="0" />
+            <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.55" />
           </linearGradient>
           <linearGradient id="n-beam" x1="0" y1="1" x2="1" y2="0">
             <stop offset="0%" stopColor="#8B5CF6" />
@@ -57,64 +68,106 @@ export function SignalConverge() {
             <stop offset="60%" stopColor="#22D3EE" stopOpacity="0.18" />
             <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
           </radialGradient>
+          <radialGradient id="absorb-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#F4F1EA" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#F4F1EA" stopOpacity="0" />
+          </radialGradient>
         </defs>
 
-        {/* Converging trails: each fragment → entry waypoint → core waypoint */}
-        {fragments.map((f, i) => (
-          <g key={`l-${i}`}>
+        {/* Curved trails — long, gentle, fading INTO the core (no arrowheads) */}
+        {fragments.map((f, i) => {
+          // Random-feeling control points so trails curve organically toward the waypoint
+          const midX = (f.x + waypoint.x) / 2 + (i % 2 === 0 ? -20 : 20);
+          const midY = (f.y + waypoint.y) / 2 + (i % 3 === 0 ? -30 : 30);
+          return (
             <path
-              d={`M ${f.x + f.len / 2} ${f.y} Q ${entry.x - 40} ${(f.y + entry.y) / 2} ${entry.x} ${entry.y}`}
-              stroke="url(#conv-grad)"
-              strokeWidth="0.7"
-              strokeOpacity="0.45"
+              key={`tr-${i}`}
+              d={`M ${f.x} ${f.y} Q ${midX} ${midY} ${waypoint.x} ${waypoint.y}`}
+              stroke="url(#conv-trail)"
+              strokeWidth="0.6"
+              strokeOpacity="0.35"
               className="animate-dash"
               style={{ animationDelay: `${f.delay}s` }}
               fill="none"
             />
-          </g>
-        ))}
+          );
+        })}
 
-        {/* Fragmented signal segments */}
-        {fragments.map((f, i) => (
-          <g key={`f-${i}`} className="animate-drift" style={{ animationDelay: `${f.delay}s` }}>
-            <line
-              x1={f.x}
-              y1={f.y}
-              x2={f.x + f.len}
-              y2={f.y}
-              stroke="#F4F1EA"
-              strokeOpacity="0.55"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-            <circle cx={f.x} cy={f.y} r="1.6" fill="#8B5CF6" />
-          </g>
-        ))}
-
-        {/* Entry waypoint — fragments fold here before entering the Core */}
-        <line
-          x1={entry.x}
-          y1={entry.y}
-          x2={nTL.x}
-          y2={nTL.y}
-          stroke="url(#n-beam)"
-          strokeOpacity="0.4"
-          strokeWidth="0.8"
-        />
-        <line
-          x1={entry.x}
-          y1={entry.y}
-          x2={nBL.x}
-          y2={nBL.y}
-          stroke="url(#n-beam)"
-          strokeOpacity="0.4"
-          strokeWidth="0.8"
-        />
-        <circle cx={entry.x} cy={entry.y} r="2.4" fill="#F4F1EA" />
-        <circle cx={entry.x} cy={entry.y} r="5" stroke="#F4F1EA" strokeOpacity="0.3" />
+        {/* Floating fragments — particles, arcs, micro-glyphs (NO arrows) */}
+        {fragments.map((f, i) => {
+          const s = f.scale ?? 1;
+          return (
+            <g
+              key={`f-${i}`}
+              className="animate-drift"
+              style={{ animationDelay: `${f.delay}s`, transformOrigin: `${f.x}px ${f.y}px` }}
+              transform={`translate(${f.x} ${f.y}) scale(${s})`}
+            >
+              {f.type === "arc" && (
+                <path
+                  d="M -10 0 Q 0 -6 10 0"
+                  stroke="#F4F1EA"
+                  strokeOpacity="0.55"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+              )}
+              {f.type === "dot" && (
+                <>
+                  <circle r="1.6" fill="#F4F1EA" fillOpacity="0.8" />
+                  <circle r="4" stroke="#F4F1EA" strokeOpacity="0.18" />
+                </>
+              )}
+              {f.type === "glyph-bracket" && (
+                <>
+                  <path
+                    d="M -6 -4 L -8 -4 L -8 4 L -6 4"
+                    stroke="#8B5CF6"
+                    strokeOpacity="0.7"
+                    strokeWidth="1"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M 6 -4 L 8 -4 L 8 4 L 6 4"
+                    stroke="#22D3EE"
+                    strokeOpacity="0.7"
+                    strokeWidth="1"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                  <circle r="1" fill="#F4F1EA" fillOpacity="0.7" />
+                </>
+              )}
+              {f.type === "glyph-cross" && (
+                <>
+                  <line x1="-5" y1="0" x2="5" y2="0" stroke="#F4F1EA" strokeOpacity="0.5" strokeWidth="0.9" />
+                  <line x1="0" y1="-5" x2="0" y2="5" stroke="#F4F1EA" strokeOpacity="0.5" strokeWidth="0.9" />
+                </>
+              )}
+              {f.type === "glyph-square" && (
+                <>
+                  {/* incomplete square — three sides */}
+                  <path
+                    d="M -5 -5 L 5 -5 L 5 5"
+                    stroke="#8B5CF6"
+                    strokeOpacity="0.6"
+                    strokeWidth="1"
+                    fill="none"
+                  />
+                  <circle cx="-5" cy="5" r="1.2" fill="#22D3EE" fillOpacity="0.8" />
+                </>
+              )}
+            </g>
+          );
+        })}
 
         {/* Core glow */}
         <circle cx={cx} cy={cy} r="140" fill="url(#core-glow)" />
+
+        {/* Absorption halo — signals dissolve here */}
+        <circle cx={cx} cy={cy} r="40" fill="url(#absorb-glow)" />
 
         {/* Neotix Core — the geometric N */}
         <g className="animate-pulse-glow">

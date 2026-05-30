@@ -1,4 +1,5 @@
 import { NeotixMark } from "../NeotixMark";
+import { CoreMotif } from "./CoreMotif";
 
 function LinkedInIcon() {
   return (
@@ -38,8 +39,25 @@ function Column({ label, children }: { label: string; children: React.ReactNode 
 
 export function Footer() {
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-10 grid gap-12 lg:gap-16 md:grid-cols-2 lg:grid-cols-12">
+    <footer
+      className="relative overflow-hidden"
+      style={{ backgroundColor: "var(--color-surface-deep)" }}
+    >
+      {/* top hairline gradient band */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(to right, transparent, oklch(0.66 0.22 295 / 0.5), oklch(0.82 0.13 200 / 0.5), transparent)",
+        }}
+      />
+      {/* watermark Core motif */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-8 w-[560px] h-[560px] pointer-events-none">
+        <CoreMotif opacity={0.03} />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-10 grid gap-12 lg:gap-16 md:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-5 lg:pr-10">
           <div className="flex items-center gap-2.5">
             <NeotixMark size={28} />
@@ -90,7 +108,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-border">
+      <div className="relative border-t border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex flex-col md:flex-row gap-2 justify-between text-xs text-muted-foreground">
           <p>© 2026 NeotixHQ. All rights reserved.</p>
           <p className="tracking-wide">Building the cognitive layer of work.</p>

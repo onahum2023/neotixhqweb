@@ -64,8 +64,11 @@ function Glyph({ i }: { i: number }) {
 
 export function Positioning() {
   return (
-    <section id="principles" className="relative py-28 lg:py-40 border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+    <section id="principles" className="relative py-24 lg:py-36 overflow-hidden">
+      <div className="absolute inset-0 bg-grid-soft mask-fade-edges opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-atmos-cyan opacity-50 pointer-events-none" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
             Principles
@@ -79,8 +82,26 @@ export function Positioning() {
           {principles.map((p, i) => (
             <div
               key={p.title}
-              className="group rounded-2xl border border-border bg-surface/60 p-7 transition-all hover:border-primary/40 hover:bg-surface/90"
+              className="group relative rounded-2xl border border-white/[0.06] bg-surface-deep p-7 shadow-card transition-all hover:border-primary/40 hover-glow-cyan overflow-hidden"
             >
+              {/* top gradient hairline */}
+              <div
+                className="absolute inset-x-6 top-0 h-px"
+                style={{
+                  background:
+                    "linear-gradient(to right, transparent, oklch(0.66 0.22 295 / 0.4), oklch(0.82 0.13 200 / 0.4), transparent)",
+                }}
+              />
+              {/* faint corner Core mark on hover */}
+              <svg
+                viewBox="0 0 60 60"
+                className="absolute -right-2 -top-2 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                aria-hidden
+              >
+                <line x1="12" y1="12" x2="48" y2="48" stroke="#22D3EE" strokeOpacity="0.35" strokeWidth="1" />
+                <circle cx="12" cy="12" r="2" fill="#8B5CF6" />
+                <circle cx="48" cy="48" r="2" fill="#22D3EE" />
+              </svg>
               <Glyph i={i} />
               <h3 className="mt-6 text-lg font-semibold tracking-tight">{p.title}</h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{p.body}</p>
