@@ -65,11 +65,11 @@ export function Products() {
             visual={<MeridianVisual />}
           />
           <SystemCard
-            label="Augment-Labs by NeotixHQ"
-            name="Augment-Labs"
-            tagline="Exploring AI-assisted hiring workflows."
+            label="Calix by NeotixHQ"
+            name="Calix"
+            tagline="Exploring calibrated hiring decisions."
             status="MVP"
-            description="Augment-Labs explores how AI can help hiring managers turn job requirements, candidate signals, and interview preparation into a clearer decision workflow."
+            description="Calix explores how AI can help hiring managers turn job requirements, candidate signals, and interview preparation into a clearer, more structured decision workflow."
             visual={<AugmentVisual />}
           />
           <SystemCard
