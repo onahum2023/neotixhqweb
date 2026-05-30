@@ -1,220 +1,280 @@
 /**
- * Hero visual — fragmented information particles drift on the left and
- * are gently absorbed into the Neotix Core on the right. The Core is the
- * brand device: a geometric N described by corner nodes, a violet→cyan
- * diagonal beam, and a structured center waypoint.
- *
- * Design intent: signals as floating context particles being organized,
- * NOT as projectiles aimed at a target.
+ * Hero visual — dense streams of fragmented information flow from the left
+ * and are absorbed into the Neotix Core: a layered hexagonal device with a
+ * bright violet/cyan center. Structured outputs emit as circuit lines on
+ * the right, suggesting context turned into action.
  */
-type Fragment = {
-  type: "arc" | "dot" | "glyph-bracket" | "glyph-cross" | "glyph-square";
-  x: number;
-  y: number;
-  delay: number;
-  scale?: number;
-};
+
+function hexPoints(cx: number, cy: number, r: number) {
+  // pointy-top hexagon
+  const pts: { x: number; y: number }[] = [];
+  for (let i = 0; i < 6; i++) {
+    const a = (Math.PI / 3) * i - Math.PI / 2;
+    pts.push({ x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) });
+  }
+  return pts;
+}
+
+function hexPath(cx: number, cy: number, r: number) {
+  const pts = hexPoints(cx, cy, r);
+  return pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ") + " Z";
+}
 
 export function SignalConverge() {
-  const fragments: Fragment[] = [
-    { type: "arc", x: 30, y: 60, delay: 0 },
-    { type: "dot", x: 70, y: 100, delay: 0.6 },
-    { type: "glyph-bracket", x: 20, y: 145, delay: 1.2 },
-    { type: "arc", x: 95, y: 185, delay: 0.3, scale: 0.8 },
-    { type: "glyph-cross", x: 40, y: 230, delay: 1.8 },
-    { type: "dot", x: 80, y: 270, delay: 0.9 },
-    { type: "glyph-square", x: 30, y: 310, delay: 2.2 },
-    { type: "arc", x: 110, y: 80, delay: 1.5, scale: 0.7 },
-    { type: "dot", x: 60, y: 340, delay: 0.4 },
-    { type: "glyph-bracket", x: 100, y: 250, delay: 1.7, scale: 0.85 },
-    { type: "dot", x: 130, y: 160, delay: 2.4 },
-    { type: "arc", x: 50, y: 200, delay: 1.0, scale: 0.9 },
-  ];
+  const W = 900;
+  const H = 600;
+  const cx = 640;
+  const cy = 300;
 
-  // Neotix Core geometry
-  const cx = 360;
-  const cy = 200;
-  const r = 90;
-  const nTL = { x: cx - r, y: cy - r };
-  const nBL = { x: cx - r, y: cy + r };
-  const nTR = { x: cx + r, y: cy - r };
-  const nBR = { x: cx + r, y: cy + r };
-  const waypoint = { x: cx, y: cy };
+  // Many flowing streams — random-ish but deterministic
+  const STREAM_COUNT = 64;
+  const streams = Array.from({ length: STREAM_COUNT }, (_, i) => {
+    const t = i / (STREAM_COUNT - 1);
+    // Vertical fan on the left side
+    const startX = 60 + ((i * 37) % 180);
+    const startY = 40 + t * (H - 80) + ((i * 53) % 30) - 15;
+    // Control points bend toward the core
+    const cpx1 = startX + 140 + ((i * 71) % 90);
+    const cpy1 = startY + ((i * 91) % 80) - 40;
+    const cpx2 = cx - 160 + ((i * 29) % 80);
+    const cpy2 = cy + ((i * 113) % 200) - 100;
+    const endX = cx - 18; // arrive at core left edge
+    const endY = cy + ((i * 17) % 60) - 30;
+    const opacity = 0.18 + ((i * 13) % 35) / 100;
+    const width = 0.4 + ((i * 7) % 6) / 10;
+    const hue = i % 3; // 0 violet, 1 cyan, 2 white
+    const delay = (i % 12) * 0.4;
+    return {
+      d: `M ${startX} ${startY} C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${endX} ${endY}`,
+      opacity,
+      width,
+      hue,
+      delay,
+    };
+  });
+
+  // Scattered particle fragments along the streams area
+  const PARTICLES = 70;
+  const particles = Array.from({ length: PARTICLES }, (_, i) => {
+    const x = 70 + ((i * 53) % 460);
+    const y = 30 + ((i * 97) % (H - 60));
+    const kind = i % 5; // dot, ring, square, micro-square, micro-dot
+    const hue = i % 3;
+    const delay = (i % 14) * 0.3;
+    return { x, y, kind, hue, delay, size: 1 + ((i * 11) % 4) };
+  });
+
+  // Output circuit lines on the right
+  const OUTPUTS = 9;
+  const outputs = Array.from({ length: OUTPUTS }, (_, i) => {
+    const startX = cx + 90;
+    const startY = cy - 140 + i * 35;
+    const midX = startX + 60 + (i % 3) * 30;
+    const endX = W - 20;
+    const endY = startY + (i % 2 === 0 ? -10 : 10);
+    return {
+      d: `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`,
+      endX,
+      endY,
+      delay: i * 0.2,
+    };
+  });
+
+  const colorFor = (hue: number) =>
+    hue === 0 ? "#8B5CF6" : hue === 1 ? "#22D3EE" : "#F4F1EA";
+
+  // Core hex layers
+  const outerHex = hexPath(cx, cy, 120);
+  const midHex = hexPath(cx, cy, 90);
+  const innerHex = hexPath(cx, cy, 60);
+  const tinyHex = hexPath(cx, cy, 28);
+
+  // Vertices for output anchor dots
+  const outerPts = hexPoints(cx, cy, 120);
 
   return (
-    <div className="relative w-full aspect-square max-w-[560px] mx-auto">
+    <div className="relative w-full aspect-[3/2] max-w-[720px] mx-auto">
       <div
         className="absolute inset-0 rounded-full blur-3xl opacity-60"
         style={{ background: "var(--gradient-radial)" }}
       />
       <svg
-        viewBox="0 0 480 400"
+        viewBox={`0 0 ${W} ${H}`}
         className="relative w-full h-full"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id="conv-trail" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#F4F1EA" stopOpacity="0" />
-            <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.55" />
+          <linearGradient id="stream-violet" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0" />
+            <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.85" />
           </linearGradient>
-          <linearGradient id="n-beam" x1="0" y1="1" x2="1" y2="0">
+          <linearGradient id="stream-cyan" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#22D3EE" stopOpacity="0" />
+            <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.95" />
+          </linearGradient>
+          <linearGradient id="stream-white" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#F4F1EA" stopOpacity="0" />
+            <stop offset="60%" stopColor="#F4F1EA" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.7" />
+          </linearGradient>
+
+          <radialGradient id="core-center" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#F4F1EA" stopOpacity="1" />
+            <stop offset="25%" stopColor="#C4B5FD" stopOpacity="0.9" />
+            <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="core-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="hex-edge" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#8B5CF6" />
             <stop offset="100%" stopColor="#22D3EE" />
           </linearGradient>
-          <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.35" />
-            <stop offset="60%" stopColor="#22D3EE" stopOpacity="0.18" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="absorb-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F4F1EA" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#F4F1EA" stopOpacity="0" />
-          </radialGradient>
+
+          <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" />
+          </filter>
         </defs>
 
-        {/* Curved trails — long, gentle, fading INTO the core (no arrowheads) */}
-        {fragments.map((f, i) => {
-          // Random-feeling control points so trails curve organically toward the waypoint
-          const midX = (f.x + waypoint.x) / 2 + (i % 2 === 0 ? -20 : 20);
-          const midY = (f.y + waypoint.y) / 2 + (i % 3 === 0 ? -30 : 30);
-          return (
-            <path
-              key={`tr-${i}`}
-              d={`M ${f.x} ${f.y} Q ${midX} ${midY} ${waypoint.x} ${waypoint.y}`}
-              stroke="url(#conv-trail)"
-              strokeWidth="0.6"
-              strokeOpacity="0.35"
-              className="animate-dash"
-              style={{ animationDelay: `${f.delay}s` }}
-              fill="none"
-            />
-          );
-        })}
+        {/* Outer halo glow behind the core */}
+        <circle cx={cx} cy={cy} r="240" fill="url(#core-halo)" />
 
-        {/* Floating fragments — particles, arcs, micro-glyphs (NO arrows) */}
-        {fragments.map((f, i) => {
-          const s = f.scale ?? 1;
-          return (
-            <g
-              key={`f-${i}`}
-              className="animate-drift"
-              style={{ animationDelay: `${f.delay}s`, transformOrigin: `${f.x}px ${f.y}px` }}
-              transform={`translate(${f.x} ${f.y}) scale(${s})`}
-            >
-              {f.type === "arc" && (
-                <path
-                  d="M -10 0 Q 0 -6 10 0"
-                  stroke="#F4F1EA"
-                  strokeOpacity="0.55"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              )}
-              {f.type === "dot" && (
-                <>
-                  <circle r="1.6" fill="#F4F1EA" fillOpacity="0.8" />
-                  <circle r="4" stroke="#F4F1EA" strokeOpacity="0.18" />
-                </>
-              )}
-              {f.type === "glyph-bracket" && (
-                <>
-                  <path
-                    d="M -6 -4 L -8 -4 L -8 4 L -6 4"
-                    stroke="#8B5CF6"
-                    strokeOpacity="0.7"
-                    strokeWidth="1"
-                    fill="none"
-                    strokeLinecap="round"
+        {/* Flowing streams */}
+        <g>
+          {streams.map((s, i) => {
+            const grad =
+              s.hue === 0
+                ? "url(#stream-violet)"
+                : s.hue === 1
+                  ? "url(#stream-cyan)"
+                  : "url(#stream-white)";
+            return (
+              <path
+                key={`s-${i}`}
+                d={s.d}
+                stroke={grad}
+                strokeWidth={s.width}
+                strokeOpacity={s.opacity}
+                strokeLinecap="round"
+                fill="none"
+                className="animate-dash"
+                style={{ animationDelay: `${s.delay}s` }}
+              />
+            );
+          })}
+        </g>
+
+        {/* Particle fragments */}
+        <g>
+          {particles.map((p, i) => {
+            const c = colorFor(p.hue);
+            return (
+              <g
+                key={`p-${i}`}
+                className="animate-drift"
+                style={{
+                  animationDelay: `${p.delay}s`,
+                  transformOrigin: `${p.x}px ${p.y}px`,
+                }}
+              >
+                {p.kind === 0 && (
+                  <circle cx={p.x} cy={p.y} r={p.size} fill={c} fillOpacity="0.85" />
+                )}
+                {p.kind === 1 && (
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r={p.size + 1.5}
+                    stroke={c}
+                    strokeOpacity="0.55"
+                    strokeWidth="0.7"
                   />
-                  <path
-                    d="M 6 -4 L 8 -4 L 8 4 L 6 4"
-                    stroke="#22D3EE"
-                    strokeOpacity="0.7"
-                    strokeWidth="1"
-                    fill="none"
-                    strokeLinecap="round"
+                )}
+                {p.kind === 2 && (
+                  <rect
+                    x={p.x - p.size}
+                    y={p.y - p.size}
+                    width={p.size * 2}
+                    height={p.size * 2}
+                    fill={c}
+                    fillOpacity="0.7"
                   />
-                  <circle r="1" fill="#F4F1EA" fillOpacity="0.7" />
-                </>
-              )}
-              {f.type === "glyph-cross" && (
-                <>
-                  <line x1="-5" y1="0" x2="5" y2="0" stroke="#F4F1EA" strokeOpacity="0.5" strokeWidth="0.9" />
-                  <line x1="0" y1="-5" x2="0" y2="5" stroke="#F4F1EA" strokeOpacity="0.5" strokeWidth="0.9" />
-                </>
-              )}
-              {f.type === "glyph-square" && (
-                <>
-                  {/* incomplete square — three sides */}
-                  <path
-                    d="M -5 -5 L 5 -5 L 5 5"
-                    stroke="#8B5CF6"
-                    strokeOpacity="0.6"
-                    strokeWidth="1"
-                    fill="none"
+                )}
+                {p.kind === 3 && (
+                  <rect
+                    x={p.x - p.size}
+                    y={p.y - p.size}
+                    width={p.size * 2}
+                    height={p.size * 2}
+                    stroke={c}
+                    strokeOpacity="0.5"
+                    strokeWidth="0.6"
                   />
-                  <circle cx="-5" cy="5" r="1.2" fill="#22D3EE" fillOpacity="0.8" />
-                </>
-              )}
+                )}
+                {p.kind === 4 && (
+                  <circle cx={p.x} cy={p.y} r="0.8" fill="#F4F1EA" fillOpacity="0.9" />
+                )}
+              </g>
+            );
+          })}
+        </g>
+
+        {/* Output circuit lines */}
+        <g>
+          {outputs.map((o, i) => (
+            <g key={`o-${i}`}>
+              <path
+                d={o.d}
+                stroke="#22D3EE"
+                strokeOpacity="0.45"
+                strokeWidth="0.8"
+                fill="none"
+                strokeLinecap="square"
+              />
+              <circle
+                cx={o.endX}
+                cy={o.endY}
+                r="2"
+                fill="#22D3EE"
+                fillOpacity="0.8"
+              />
             </g>
-          );
-        })}
+          ))}
+        </g>
 
-        {/* Core glow */}
-        <circle cx={cx} cy={cy} r="140" fill="url(#core-glow)" />
+        {/* Core — layered hexagons */}
+        <g className="animate-pulse-glow" style={{ transformOrigin: `${cx}px ${cy}px` }}>
+          {/* Outer hex with gradient edge */}
+          <path d={outerHex} stroke="url(#hex-edge)" strokeWidth="1.5" strokeOpacity="0.85" />
+          {/* Inner ring hexes */}
+          <path d={midHex} stroke="#22D3EE" strokeOpacity="0.55" strokeWidth="1" />
+          <path d={innerHex} stroke="#8B5CF6" strokeOpacity="0.6" strokeWidth="1" />
+          <path d={tinyHex} stroke="#F4F1EA" strokeOpacity="0.7" strokeWidth="0.8" />
 
-        {/* Absorption halo — signals dissolve here */}
-        <circle cx={cx} cy={cy} r="40" fill="url(#absorb-glow)" />
+          {/* Vertex nodes on outer hex */}
+          {outerPts.map((p, i) => (
+            <g key={`v-${i}`}>
+              <circle cx={p.x} cy={p.y} r="3.5" fill={i % 2 === 0 ? "#8B5CF6" : "#22D3EE"} />
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r="7"
+                stroke={i % 2 === 0 ? "#8B5CF6" : "#22D3EE"}
+                strokeOpacity="0.35"
+              />
+            </g>
+          ))}
 
-        {/* Neotix Core — the geometric N */}
-        <g className="animate-pulse-glow">
-          {/* Implied verticals — hairline */}
-          <line x1={nTL.x} y1={nTL.y} x2={nBL.x} y2={nBL.y} stroke="#F4F1EA" strokeOpacity="0.22" strokeWidth="1" />
-          <line x1={nTR.x} y1={nTR.y} x2={nBR.x} y2={nBR.y} stroke="#F4F1EA" strokeOpacity="0.22" strokeWidth="1" />
-
-          {/* Inner converging hairlines */}
-          <line x1={nBL.x} y1={nBL.y} x2={waypoint.x} y2={waypoint.y} stroke="#8B5CF6" strokeOpacity="0.4" strokeWidth="0.8" />
-          <line x1={nTR.x} y1={nTR.y} x2={waypoint.x} y2={waypoint.y} stroke="#22D3EE" strokeOpacity="0.4" strokeWidth="0.8" />
-
-          {/* Dominant diagonal beam of the N */}
-          <line
-            x1={nTL.x}
-            y1={nTL.y}
-            x2={nBR.x}
-            y2={nBR.y}
-            stroke="url(#n-beam)"
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-          {/* Beam echo */}
-          <line
-            x1={nTL.x + 6}
-            y1={nTL.y}
-            x2={nBR.x + 6}
-            y2={nBR.y}
-            stroke="url(#n-beam)"
-            strokeOpacity="0.2"
-            strokeWidth="1"
-            strokeLinecap="round"
-          />
-
-          {/* Corner nodes */}
-          <circle cx={nTL.x} cy={nTL.y} r="6" fill="#8B5CF6" />
-          <circle cx={nTL.x} cy={nTL.y} r="12" stroke="#8B5CF6" strokeOpacity="0.4" />
-
-          <circle cx={nBR.x} cy={nBR.y} r="6" fill="#22D3EE" />
-          <circle cx={nBR.x} cy={nBR.y} r="12" stroke="#22D3EE" strokeOpacity="0.4" />
-
-          <circle cx={nBL.x} cy={nBL.y} r="3.5" fill="#F4F1EA" fillOpacity="0.85" />
-          <circle cx={nTR.x} cy={nTR.y} r="3.5" fill="#F4F1EA" fillOpacity="0.85" />
-
-          {/* Waypoint — structured context */}
-          <circle cx={waypoint.x} cy={waypoint.y} r="4" fill="#F4F1EA" />
-          <circle cx={waypoint.x} cy={waypoint.y} r="9" stroke="#F4F1EA" strokeOpacity="0.35" />
-          <circle cx={waypoint.x} cy={waypoint.y} r="16" stroke="#F4F1EA" strokeOpacity="0.15" />
+          {/* Bright center */}
+          <circle cx={cx} cy={cy} r="60" fill="url(#core-center)" />
+          <circle cx={cx} cy={cy} r="6" fill="#F4F1EA" />
+          <circle cx={cx} cy={cy} r="14" stroke="#F4F1EA" strokeOpacity="0.55" />
         </g>
       </svg>
     </div>
