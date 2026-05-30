@@ -38,6 +38,8 @@ function Index() {
       <Nav />
       <Hero />
       <BeamDivider />
+      <Mission />
+      <BeamDivider />
       <Vision />
       <BeamDivider />
       <Positioning />
