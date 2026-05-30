@@ -17,6 +17,7 @@ function StudioIndex() {
   const navigate = useNavigate();
   const list = useServerFn(listAllFieldNotes);
   const del = useServerFn(deleteFieldNote);
+  const setStatus = useServerFn(setFieldNoteStatus);
   const qc = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
