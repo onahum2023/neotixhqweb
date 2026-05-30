@@ -23,7 +23,7 @@ export function ClosingCTA() {
             href="mailto:hello@neotixhq.com"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-[0_0_50px_-10px_rgba(139,92,246,0.7)]"
           >
-            Contact NeotixHQ
+            Start a conversation
             <span aria-hidden>→</span>
           </a>
         </div>

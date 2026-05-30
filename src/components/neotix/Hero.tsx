@@ -16,25 +16,25 @@ export function Hero() {
             NeotixHQ — Cognitive systems company
           </div>
           <h1 className="mt-8 text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-balance">
-            Building cognitive systems for people working beyond the limits of information.
+            Building the cognitive layer of work.
           </h1>
           <p className="mt-7 text-lg text-muted-foreground max-w-xl leading-relaxed">
-            NeotixHQ is an AI-native product company designing systems that help people make
-            sense of conversations, workflows, signals, and decisions in complex environments.
+            NeotixHQ designs AI-native systems that help people turn fragmented conversations,
+            workflows, signals, and decisions into structured context and better action.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
-              href="#vision"
+              href="#contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-[0_0_40px_-10px_rgba(139,92,246,0.6)]"
             >
-              Explore the vision
+              Start a conversation
               <span aria-hidden>→</span>
             </a>
             <a
-              href="#contact"
+              href="#vision"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium border border-border text-foreground hover:border-foreground/40 transition-colors"
             >
-              Contact NeotixHQ
+              Explore the vision
             </a>
           </div>
         </div>

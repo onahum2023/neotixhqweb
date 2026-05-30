@@ -5,10 +5,12 @@ type Props = {
 };
 
 /**
- * NeotixHQ mark — abstract "N" as a constellation of nodes.
- * The diagonal signal beam dominates; verticals are implied by hairlines
- * and the alignment of nodes, not by solid bars. Designed to read as a
- * network/signal mark, not a logotype.
+ * NeotixHQ mark — the "Neotix Core".
+ * A geometric N described by a constellation of nodes connected by
+ * converging signal paths. The diagonal beam carries the dominant signal
+ * from the violet origin node down to the cyan structured node, passing
+ * through a waypoint that represents the moment fragmented input becomes
+ * structured context. Implied verticals are hairlines, never solid bars.
  */
 export function NeotixMark({ size = 28, className, glow = false }: Props) {
   return (
@@ -28,11 +30,15 @@ export function NeotixMark({ size = 28, className, glow = false }: Props) {
         </linearGradient>
       </defs>
 
-      {/* Implied verticals — hairline only, never solid bars */}
-      <line x1="9" y1="9" x2="9" y2="31" stroke="#F4F1EA" strokeOpacity="0.18" strokeWidth="0.8" />
-      <line x1="31" y1="9" x2="31" y2="31" stroke="#F4F1EA" strokeOpacity="0.18" strokeWidth="0.8" />
+      {/* Implied verticals of the N — hairline only */}
+      <line x1="9" y1="9" x2="9" y2="31" stroke="#F4F1EA" strokeOpacity="0.22" strokeWidth="0.8" />
+      <line x1="31" y1="9" x2="31" y2="31" stroke="#F4F1EA" strokeOpacity="0.22" strokeWidth="0.8" />
 
-      {/* Dominant diagonal signal beam (top-left → bottom-right of the N's diagonal) */}
+      {/* Converging hairlines — fragmented signals folding into the diagonal */}
+      <line x1="9" y1="31" x2="20" y2="20" stroke="#8B5CF6" strokeOpacity="0.35" strokeWidth="0.6" />
+      <line x1="31" y1="9" x2="20" y2="20" stroke="#22D3EE" strokeOpacity="0.35" strokeWidth="0.6" />
+
+      {/* Dominant diagonal signal beam — the N's diagonal */}
       <line
         x1="9"
         y1="9"
@@ -43,30 +49,31 @@ export function NeotixMark({ size = 28, className, glow = false }: Props) {
         strokeLinecap="round"
       />
 
-      {/* Faint inner echo on the diagonal — feels like signal trail */}
+      {/* Inner echo on the diagonal — signal trail */}
       <line
         x1="11.5"
         y1="9"
         x2="33.5"
         y2="31"
         stroke="url(#neotix-beam)"
-        strokeOpacity="0.25"
+        strokeOpacity="0.22"
         strokeWidth="0.8"
         strokeLinecap="round"
       />
 
-      {/* Four corner nodes — these define the N silhouette */}
+      {/* Corner nodes — define the N silhouette */}
       <circle cx="9" cy="9" r="2.4" fill="#8B5CF6" />
-      <circle cx="9" cy="9" r="4.6" stroke="#8B5CF6" strokeOpacity="0.35" />
+      <circle cx="9" cy="9" r="4.8" stroke="#8B5CF6" strokeOpacity="0.35" />
 
       <circle cx="31" cy="31" r="2.4" fill="#22D3EE" />
-      <circle cx="31" cy="31" r="4.6" stroke="#22D3EE" strokeOpacity="0.35" />
+      <circle cx="31" cy="31" r="4.8" stroke="#22D3EE" strokeOpacity="0.35" />
 
-      <circle cx="9" cy="31" r="1.4" fill="#F4F1EA" fillOpacity="0.7" />
-      <circle cx="31" cy="9" r="1.4" fill="#F4F1EA" fillOpacity="0.7" />
+      <circle cx="9" cy="31" r="1.4" fill="#F4F1EA" fillOpacity="0.75" />
+      <circle cx="31" cy="9" r="1.4" fill="#F4F1EA" fillOpacity="0.75" />
 
-      {/* Tiny waypoint node mid-diagonal — the "convergence" beat */}
-      <circle cx="20" cy="20" r="1.1" fill="#F4F1EA" />
+      {/* Waypoint node — the convergence into structured context */}
+      <circle cx="20" cy="20" r="1.6" fill="#F4F1EA" />
+      <circle cx="20" cy="20" r="3.2" stroke="#F4F1EA" strokeOpacity="0.35" />
     </svg>
   );
 }
