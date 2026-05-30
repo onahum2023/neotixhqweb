@@ -1,5 +1,6 @@
 import { MeridianVisual } from "./MeridianVisual";
 import { AugmentVisual } from "./AugmentVisual";
+import { OrinVisual } from "./OrinVisual";
 import type { ReactNode } from "react";
 
 type SystemProps = {
@@ -49,12 +50,12 @@ export function Products() {
             Early systems from NeotixHQ.
           </h2>
           <p className="mt-5 text-base text-muted-foreground leading-relaxed">
-            Our first systems explore how AI can preserve context, improve judgment, and reduce
-            friction in high-cognitive-load workflows.
+            Our early systems explore how AI can preserve context, improve judgment, and become
+            more useful over time without sacrificing transparency, control, or trust.
           </p>
         </div>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-4 max-w-4xl">
+        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <SystemCard
             label="Meridian by NeotixHQ"
             name="Meridian"
@@ -70,6 +71,14 @@ export function Products() {
             status="MVP"
             description="Augment-Labs explores how AI can help hiring managers turn job requirements, candidate signals, and interview preparation into a clearer decision workflow."
             visual={<AugmentVisual />}
+          />
+          <SystemCard
+            label="Orin by NeotixHQ"
+            name="Orin"
+            tagline="Exploring controlled personal AI collaboration."
+            status="Roadmap"
+            description="Orin explores how a personal AI layer can learn how to work with you over time while remaining transparent, bounded, auditable, and under your control. Instead of changing itself automatically, Orin proposes improvements to its behavior, skills, and capabilities for your approval."
+            visual={<OrinVisual />}
           />
         </div>
       </div>
