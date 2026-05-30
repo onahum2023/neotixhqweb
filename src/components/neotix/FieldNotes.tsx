@@ -35,8 +35,21 @@ export function FieldNotes() {
   const items = showPlaceholders ? placeholderNotes : published;
 
   return (
-    <section id="field-notes" className="relative py-28 lg:py-36 border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+    <section
+      id="field-notes"
+      className="relative py-24 lg:py-32 overflow-hidden"
+      style={{ backgroundColor: "var(--color-surface-warm)" }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 60% at 80% 20%, oklch(0.66 0.22 295 / 0.08), transparent 70%)",
+        }}
+      />
+      <div className="absolute inset-0 bg-noise opacity-[0.03] mix-blend-overlay pointer-events-none" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
             Field Notes
@@ -49,11 +62,12 @@ export function FieldNotes() {
           </p>
         </div>
 
-        <div className="mt-14 grid md:grid-cols-3 gap-px bg-border/60 border border-border rounded-2xl overflow-hidden">
+        <div className="mt-14 grid md:grid-cols-3 gap-px bg-border/40 border border-white/[0.06] rounded-2xl overflow-hidden shadow-card">
           {items.slice(0, 3).map((n, i) => (
             <article
               key={`note-${i}`}
-              className="group relative bg-background p-7 lg:p-8 flex flex-col min-h-[220px] transition-colors hover:bg-surface/60"
+              className="group relative p-7 lg:p-8 flex flex-col min-h-[220px] transition-colors hover:bg-surface-deep"
+              style={{ backgroundColor: "var(--color-surface-warm)" }}
             >
               <div className="flex items-center justify-between">
                 <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
@@ -65,7 +79,14 @@ export function FieldNotes() {
                   </span>
                 ) : null}
               </div>
-              <h3 className="mt-5 text-lg font-semibold tracking-tight leading-snug">
+              <div
+                className="mt-5 h-px w-10"
+                style={{
+                  background:
+                    "linear-gradient(to right, oklch(0.66 0.22 295 / 0.6), transparent)",
+                }}
+              />
+              <h3 className="mt-4 text-lg font-semibold tracking-tight leading-snug">
                 {n.title}
               </h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
