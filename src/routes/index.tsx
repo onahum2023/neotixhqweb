@@ -5,12 +5,9 @@ import { Vision } from "@/components/neotix/Vision";
 import { Positioning } from "@/components/neotix/Positioning";
 import { Products } from "@/components/neotix/Products";
 import { Philosophy } from "@/components/neotix/Philosophy";
-import { FieldNotes } from "@/components/neotix/FieldNotes";
 import { ClosingCTA } from "@/components/neotix/ClosingCTA";
 import { Footer } from "@/components/neotix/Footer";
-import { SignalDivider } from "@/components/neotix/dividers/SignalDivider";
 import { BeamDivider } from "@/components/neotix/dividers/BeamDivider";
-import { FragmentDivider } from "@/components/neotix/dividers/FragmentDivider";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,14 +38,12 @@ function Index() {
       <Hero />
       <BeamDivider />
       <Vision />
-      <SignalDivider />
-      <Positioning />
-      <FragmentDivider />
-      <Products />
-      <SignalDivider />
-      <Philosophy />
       <BeamDivider />
-      <FieldNotes />
+      <Positioning />
+      <BeamDivider />
+      <Products />
+      <BeamDivider />
+      <Philosophy />
       <ClosingCTA />
       <Footer />
     </main>
