@@ -1,5 +1,7 @@
 import { SignalConverge } from "./SignalConverge";
 import { CoreMotif } from "./CoreMotif";
+import { Mission } from "./Mission";
+
 
 export function Hero() {
   return (
