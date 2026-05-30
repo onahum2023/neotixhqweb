@@ -50,7 +50,7 @@ export function Products() {
   return (
     <section
       id="studio"
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-14 lg:py-20 overflow-hidden"
       style={{ backgroundColor: "var(--color-surface-deep)" }}
     >
       <div

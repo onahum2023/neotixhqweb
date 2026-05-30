@@ -38,7 +38,7 @@ export function FieldNotes() {
   return (
     <section
       id="field-notes"
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-14 lg:py-20 overflow-hidden"
       style={{ backgroundColor: "var(--color-surface-warm)" }}
     >
       <div
