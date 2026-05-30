@@ -11,10 +11,10 @@ export function Nav() {
         </Link>
         <nav className="hidden md:flex items-center gap-9 text-sm text-muted-foreground">
           <Link to="/" hash="vision" className="hover:text-foreground transition-colors">Vision</Link>
-          <Link to="/" hash="philosophy" className="hover:text-foreground transition-colors">Principles</Link>
-          <Link to="/" hash="products" className="hover:text-foreground transition-colors">Early Systems</Link>
+          <Link to="/" hash="principles" className="hover:text-foreground transition-colors">Principles</Link>
+          <Link to="/" hash="studio" className="hover:text-foreground transition-colors">Early Systems</Link>
           <Link to="/field-notes" className="hover:text-foreground transition-colors">Field Notes</Link>
-          <Link to="/" hash="positioning" className="hover:text-foreground transition-colors">Company</Link>
+          <Link to="/" hash="company" className="hover:text-foreground transition-colors">Company</Link>
         </nav>
         <Link
           to="/"
