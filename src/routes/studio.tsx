@@ -63,6 +63,23 @@ function StudioLayout() {
             </Link>
             <span className="text-muted-foreground">/</span>
             <Link to="/studio" className="text-sm font-medium">Studio</Link>
+            <nav className="hidden sm:flex items-center gap-4 ml-4 text-sm">
+              <Link
+                to="/studio"
+                activeOptions={{ exact: true }}
+                className="text-muted-foreground hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
+              >
+                Field Notes
+              </Link>
+              <Link
+                to="/studio/inbox"
+                className="text-muted-foreground hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
+              >
+                Inbox
+              </Link>
+            </nav>
           </div>
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline text-xs text-muted-foreground">{user?.email}</span>
