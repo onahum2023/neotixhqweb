@@ -53,8 +53,8 @@ export function Footer() {
         }}
       />
       {/* watermark Core motif */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-10 w-[520px] h-[520px] pointer-events-none opacity-50">
-        <NeotixMark size={520} />
+      <div className="absolute left-1/2 -translate-x-1/2 top-8 w-[560px] h-[560px] pointer-events-none">
+        <CoreMotif opacity={0.03} />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-10 grid gap-12 lg:gap-16 md:grid-cols-2 lg:grid-cols-12">
