@@ -7,7 +7,11 @@ const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const upsertSchema = z.object({
   id: z.string().uuid().optional(),
-  slug: z.string().min(1).max(120).regex(slugRegex, "Slug must be lowercase letters, numbers, and hyphens"),
+  slug: z
+    .string()
+    .min(1)
+    .max(120)
+    .regex(slugRegex, "Slug must be lowercase letters, numbers, and hyphens"),
   title: z.string().min(1).max(200),
   category: z.string().min(1).max(80),
   excerpt: z.string().max(500).default(""),
@@ -15,8 +19,8 @@ const upsertSchema = z.object({
   status: z.enum(["draft", "published"]),
 });
 
-async function requireAdmin(supabase: ReturnType<typeof createServerSupabase>, userId: string) {
-  const { data, error } = await supabase
+async function assertAdmin(userId: string) {
+  const { data, error } = await supabaseAdmin
     .from("user_roles")
     .select("role")
     .eq("user_id", userId)
@@ -24,13 +28,6 @@ async function requireAdmin(supabase: ReturnType<typeof createServerSupabase>, u
     .maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("Forbidden: admin role required");
-}
-
-type ServerSupabase = Awaited<ReturnType<typeof requireSupabaseAuth.server>> extends never
-  ? never
-  : never;
-function createServerSupabase() {
-  return null as never;
 }
 
 // Public — list published notes
@@ -64,8 +61,7 @@ export const getPublishedFieldNote = createServerFn({ method: "GET" })
 export const listAllFieldNotes = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { supabase, userId } = context;
-    await requireAdmin(supabase as never, userId);
+    await assertAdmin(context.userId);
     const { data, error } = await supabaseAdmin
       .from("field_notes")
       .select("id, slug, title, category, status, updated_at, published_at")
@@ -81,8 +77,7 @@ export const getFieldNote = createServerFn({ method: "GET" })
     z.object({ id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
-    await requireAdmin(supabase as never, userId);
+    await assertAdmin(context.userId);
     const { data: note, error } = await supabaseAdmin
       .from("field_notes")
       .select("*")
@@ -98,8 +93,21 @@ export const upsertFieldNote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => upsertSchema.parse(input))
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
-    await requireAdmin(supabase as never, userId);
+    await assertAdmin(context.userId);
+
+    let publishedAt: string | null =
+      data.status === "published" ? new Date().toISOString() : null;
+
+    if (data.id && data.status === "published") {
+      const { data: existing } = await supabaseAdmin
+        .from("field_notes")
+        .select("published_at, status")
+        .eq("id", data.id)
+        .maybeSingle();
+      if (existing?.status === "published" && existing.published_at) {
+        publishedAt = existing.published_at;
+      }
+    }
 
     const payload = {
       slug: data.slug,
@@ -108,23 +116,11 @@ export const upsertFieldNote = createServerFn({ method: "POST" })
       excerpt: data.excerpt,
       body: data.body,
       status: data.status,
-      author_id: userId,
-      published_at:
-        data.status === "published" ? new Date().toISOString() : null,
+      author_id: context.userId,
+      published_at: publishedAt,
     };
 
     if (data.id) {
-      // preserve original published_at when already published
-      if (data.status === "published") {
-        const { data: existing } = await supabaseAdmin
-          .from("field_notes")
-          .select("published_at, status")
-          .eq("id", data.id)
-          .maybeSingle();
-        if (existing?.status === "published" && existing.published_at) {
-          payload.published_at = existing.published_at;
-        }
-      }
       const { data: updated, error } = await supabaseAdmin
         .from("field_notes")
         .update(payload)
@@ -151,8 +147,7 @@ export const deleteFieldNote = createServerFn({ method: "POST" })
     z.object({ id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
-    await requireAdmin(supabase as never, userId);
+    await assertAdmin(context.userId);
     const { error } = await supabaseAdmin
       .from("field_notes")
       .delete()
