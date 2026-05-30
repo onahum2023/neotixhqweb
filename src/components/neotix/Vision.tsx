@@ -1,7 +1,18 @@
+import { CoreMotif } from "./CoreMotif";
+
 export function Vision() {
   return (
-    <section id="vision" className="relative py-28 lg:py-44 border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-12">
+    <section
+      id="vision"
+      className="relative py-24 lg:py-36 overflow-hidden"
+      style={{ backgroundColor: "var(--color-surface-deep)" }}
+    >
+      <div className="absolute inset-0 bg-atmos-violet opacity-60 pointer-events-none" />
+      <div className="absolute -right-40 -top-20 w-[680px] h-[680px] pointer-events-none">
+        <CoreMotif opacity={0.045} rotate={18} />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-12">
         <div className="lg:col-span-7">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
             Vision
