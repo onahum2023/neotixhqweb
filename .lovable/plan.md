@@ -1,63 +1,93 @@
+## Goal
 
-## NeotixHQ — Premium single-page site
+Make the NeotixHQ page feel less flat, less uniformly black, and more architecturally designed — without losing the premium, calm, dark direction. No copy changes.
 
-A dark, architectural, product-studio site. Single route at `/`, no backend, no images — all visuals built from SVG + CSS so it feels precise and on-brand (no stock photography, no generic AI imagery).
+## 1. Section atmosphere system (depth, not brightness)
 
-### Design system (src/styles.css)
+Add new design tokens in `src/styles.css`:
 
-Replace tokens with the brand palette in `oklch`:
+- `--surface-deep` — slightly darker than background (graphite-violet)
+- `--surface-warm` — graphite with a faint warm tint (for Field Notes)
+- `--gradient-atmos-violet` — large, soft violet radial, very low opacity
+- `--gradient-atmos-cyan` — soft cyan radial for mid-page accents
+- `--gradient-band` — subtle vertical gradient band between sections
+- `--noise-overlay` — inline SVG fractal-noise data URI as a CSS var for quiet texture
+- `--mask-fade-y` — top/bottom fade mask utility
 
-- background `#090A0F`, surface `#12141C`, surface-alt `#191C26`
-- foreground `#F4F1EA`, muted-foreground `#A8ABB8`
-- primary = violet `#8B5CF6`, accent = cyan `#22D3EE`
-- border `rgba(255,255,255,0.10)`
-- Default to dark — apply `.dark` on `<html>` in `__root.tsx`
-- Typography: Inter (via Google Fonts link in `__root.tsx` head). Tight tracking on display sizes, generous line-height on body.
-- Custom tokens: `--gradient-radial`, `--shadow-elevated`, `--glow-violet`, `--glow-cyan`.
+Add utilities: `.bg-noise`, `.bg-atmos-violet`, `.bg-atmos-cyan`, `.bg-grid-soft` (lower-opacity grid), `.mask-fade-y`.
 
-### Logo / icon
+Apply per section (all using semantic tokens, dark throughout):
 
-Build `src/components/NeotixMark.tsx` — an abstract SVG "N" formed by three vertices connected by signal paths with two small node dots at converging points. Stroke uses violet→cyan gradient. Reused in nav, footer, and as a glowing element in the hero. Also write `public/favicon.svg` with the same mark.
+- Hero: keep current violet radial, dial down grid, add faint oversized Core motif behind text
+- Vision: editorial, add one oversized faint Neotix N fragment top-right at ~4% opacity
+- Principles (`Positioning`): raised cards on `surface-deep`, cyan glow on hover only; add quiet grid panel behind grid
+- Products: lab/studio band — `surface-deep` with a single violet ambient glow on the left
+- Field Notes: switch surface to `surface-warm` graphite for editorial contrast
+- Philosophy/Company: minimal, with one large faint diagonal beam motif
+- Closing CTA: existing violet/cyan atmosphere, slightly intensified
+- Footer: structured panel on `surface-deep` with hairline top gradient band (not flat black)
 
-### Page structure
+Reduce vertical padding from `py-28 lg:py-44` → `py-24 lg:py-36` across sections to tighten rhythm without crowding.
 
-Single route `src/routes/index.tsx` composing section components in `src/components/neotix/`:
+## 2. Branded divider system
 
-1. `Nav.tsx` — slim sticky bar: mark + "NeotixHQ", right side "Products / Philosophy / Contact" + small Contact button.
-2. `Hero.tsx` — left: eyebrow "NeotixHQ — Cognitive systems", H1 headline, subhead, two CTAs (Explore products → `#products`, Contact → `mailto:`). Right: `SignalConverge.tsx` — animated SVG of ~20 fragmented short line segments on the left slowly drifting and converging into a structured hexagonal/geometric core on the right. Pure SVG + CSS `@keyframes` (slow, 12–20s loops, low opacity). Background: faint grid + radial violet glow.
-3. `Products.tsx` — section title, intro, two large cards (`ProductCard.tsx`) with subtle border, hover lifts + cyan border glow:
-   - Meridian — custom SVG visual: stacked horizontal "temporal" lines with offset dots marking memory points, slow horizontal drift.
-   - Augment-Labs — custom SVG visual: branching decision tree / structured nodes with signal weights.
-   Each card: label, name (large), short line, description, "Explore <name> →" link (anchor for now).
-4. `Philosophy.tsx` — editorial: oversized headline left, two short paragraphs right, thin top border, lots of whitespace.
-5. `Positioning.tsx` — title + body, then 3 principle cards in a grid (Context / Workflows / Decisions), each with a tiny abstract glyph and short copy.
-6. `ClosingCTA.tsx` — centered headline, body, single violet button.
-7. `Footer.tsx` — mark + "NeotixHQ / Cognitive systems for better decisions." left; links right (Meridian, Augment-Labs, Contact).
+Replace `CoreDivider` with a small family in `src/components/neotix/dividers/`:
 
-### Motion
+- `SignalDivider` — segmented hairline that breaks into 3–5 small nodes mid-line, asymmetric placement
+- `BeamDivider` — soft violet→cyan gradient band, ~80px tall, very low opacity, no hard line
+- `FragmentDivider` — two short hairlines + a faint oversized Core fragment crossing the seam
 
-- Background lines: SVG path drift via CSS `@keyframes` (transform translateX/Y, 20s linear infinite).
-- Hero mark glow: subtle pulsing `box-shadow`/filter drop-shadow (4s ease-in-out).
-- Cards: `transition-all` on transform + border + shadow; small `-translate-y-1` on hover.
-- No framer-motion needed; keeps it restrained.
+Use them alternately between sections instead of the same divider everywhere. Keep `border-t` off the sections that get a divider above them (avoid double lines).
 
-### SEO / head
+## 3. Hero signal refinement (no missiles)
 
-Update `index.tsx` `head()` with title "NeotixHQ — Cognitive systems for better decisions", description from positioning, og tags. Update `__root.tsx` default title + add Inter font `<link>` and `className="dark"` on `<html>`.
+Rewrite `SignalConverge.tsx` signal elements:
 
-### Files to create/modify
+- Remove straight horizontal line segments with leading dots (read as arrows/missiles)
+- Replace with: small floating fragments — short curved arcs, tiny circles, 2–3 micro "data glyphs" (dot + bracket, hairline cross, broken square)
+- Trails become longer, gently curved Bezier paths with very low opacity, fading into the Core (no arrowheads, no sharp convergence vectors)
+- Add slow parallax-style drift via existing `animate-drift`/`animate-dash`
+- Keep the Core geometry (N + waypoint) but soften the entry waypoint so signals appear absorbed, not aimed
 
-- modify `src/styles.css` — palette + tokens
-- modify `src/routes/__root.tsx` — dark class, Inter font link, default meta
-- modify `src/routes/index.tsx` — compose sections, page meta
-- create `src/components/NeotixMark.tsx`
-- create `src/components/neotix/{Nav,Hero,SignalConverge,Products,ProductCard,MeridianVisual,AugmentVisual,Philosophy,Positioning,ClosingCTA,Footer}.tsx`
-- create `public/favicon.svg`
+Metaphor target: fragments being organized into structure.
 
-### Out of scope (can add later)
+## 4. Visual system reuse
 
-Separate product subpages, contact form backend (Contact CTA uses `mailto:` placeholder — confirm address or leave as `hello@neotixhq.com`), real analytics, blog.
+Extract a single `CoreMotif` SVG component (oversized faint N + diagonal beam) usable as a background element. Drop low-opacity instances into:
 
-### One open question
+- Hero background (behind text column)
+- Vision (top-right corner, rotated)
+- Philosophy (left side, large, ~3% opacity)
+- Footer (centered watermark, very faint)
+- Principles cards (tiny corner mark on hover)
 
-Contact email for the CTAs / footer link — use `hello@neotixhq.com` as placeholder, or do you have a real address?
+Also wire the existing `Glyph` style into a shared visual vocabulary by reusing its gradient id pattern.
+
+## 5. Cards & surfaces
+
+Principle cards (`Positioning`):
+- `bg-surface-deep` base, `border-white/[0.06]`
+- Hover: `border-primary/40`, subtle inner cyan glow via `box-shadow`, faint Core mark fades in top-right
+- Add a thin gradient hairline at the top of each card
+
+Product cards: same surface treatment, plus a quiet left-edge violet beam accent.
+
+Field Notes cards: `surface-warm` token, hairline divider between meta and body.
+
+## Files
+
+- Edit: `src/styles.css` (tokens + utilities)
+- Edit: `src/components/neotix/SignalConverge.tsx` (signals rework)
+- Edit: `src/components/neotix/Hero.tsx`, `Vision.tsx`, `Positioning.tsx`, `Products.tsx`, `ProductCard.tsx`, `FieldNotes.tsx`, `Philosophy.tsx`, `ClosingCTA.tsx`, `Footer.tsx` (apply atmosphere + motif)
+- Edit: `src/routes/index.tsx` (swap dividers in alternating pattern)
+- New: `src/components/neotix/CoreMotif.tsx`
+- New: `src/components/neotix/dividers/SignalDivider.tsx`, `BeamDivider.tsx`, `FragmentDivider.tsx`
+- Keep `CoreDivider.tsx` for back-compat or delete after swap (will delete)
+
+## Guardrails
+
+- No new colors outside the design tokens
+- All effects via semantic tokens; nothing brighter than current accent
+- No new animations beyond existing keyframes (drift, pulse, dash)
+- No copy changes
+- Page stays dark; success = visible tonal rhythm scrolling top→bottom, branded transitions, calmer hero signals
