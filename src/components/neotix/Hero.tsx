@@ -11,11 +11,7 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
         <div className="animate-fade-up">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface/60 backdrop-blur text-xs text-muted-foreground tracking-wide">
-            <span className="size-1.5 rounded-full bg-accent" />
-            NeotixHQ — Cognitive systems company
-          </div>
-          <h1 className="mt-8 text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-balance">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-balance">
             Building the cognitive layer of work.
           </h1>
           <p className="mt-7 text-lg text-muted-foreground max-w-xl leading-relaxed">
