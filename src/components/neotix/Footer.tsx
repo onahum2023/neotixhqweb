@@ -67,6 +67,7 @@ export function Footer() {
           <Column label="Systems">
             <li><a href="#studio" className="hover:text-foreground transition-colors">Meridian <span className="text-muted-foreground/60">by NeotixHQ</span></a></li>
             <li><a href="#studio" className="hover:text-foreground transition-colors">Augment-Labs <span className="text-muted-foreground/60">by NeotixHQ</span></a></li>
+            <li><a href="#studio" className="hover:text-foreground transition-colors">Orin <span class="text-muted-foreground/60">by NeotixHQ</span></a></li>
           </Column>
           <Column label="Connect">
             <li>
