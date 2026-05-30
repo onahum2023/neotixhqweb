@@ -238,8 +238,8 @@ export function SignalConverge() {
                 strokeLinecap="square"
               />
               <circle
-                cx={o.d.split("L").slice(-1)[0].trim().split(" ")[0]}
-                cy={o.d.split("L").slice(-1)[0].trim().split(" ")[1]}
+                cx={o.endX}
+                cy={o.endY}
                 r="2"
                 fill="#22D3EE"
                 fillOpacity="0.8"
