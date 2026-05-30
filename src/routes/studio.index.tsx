@@ -2,7 +2,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { listAllFieldNotes, deleteFieldNote } from "@/lib/field-notes.functions";
+import {
+  listAllFieldNotes,
+  deleteFieldNote,
+  setFieldNoteStatus,
+} from "@/lib/field-notes.functions";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/studio/")({
@@ -13,6 +17,7 @@ function StudioIndex() {
   const navigate = useNavigate();
   const list = useServerFn(listAllFieldNotes);
   const del = useServerFn(deleteFieldNote);
+  const setStatus = useServerFn(setFieldNoteStatus);
   const qc = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
@@ -28,6 +33,17 @@ function StudioIndex() {
       qc.invalidateQueries({ queryKey: ["field-notes", "published"] });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+  });
+
+  const statusMutation = useMutation({
+    mutationFn: (vars: { id: string; status: "draft" | "published" }) =>
+      setStatus({ data: vars }),
+    onSuccess: (_d, vars) => {
+      toast.success(vars.status === "published" ? "Published" : "Moved to draft");
+      qc.invalidateQueries({ queryKey: ["studio", "field-notes"] });
+      qc.invalidateQueries({ queryKey: ["field-notes", "published"] });
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Update failed"),
   });
 
   return (
@@ -87,14 +103,28 @@ function StudioIndex() {
                     {new Date(n.updated_at).toLocaleDateString()}
                   </td>
                   <td className="px-5 py-4 text-right">
-                    <button
-                      onClick={() => {
-                        if (confirm(`Delete "${n.title}"?`)) deleteMutation.mutate(n.id);
-                      }}
-                      className="text-xs text-muted-foreground hover:text-destructive"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex items-center justify-end gap-4">
+                      <button
+                        onClick={() =>
+                          statusMutation.mutate({
+                            id: n.id,
+                            status: n.status === "published" ? "draft" : "published",
+                          })
+                        }
+                        disabled={statusMutation.isPending}
+                        className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
+                      >
+                        {n.status === "published" ? "Unpublish" : "Publish"}
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (confirm(`Delete "${n.title}"?`)) deleteMutation.mutate(n.id);
+                        }}
+                        className="text-xs text-muted-foreground hover:text-destructive"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
