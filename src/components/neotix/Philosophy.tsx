@@ -1,8 +1,10 @@
 import { CoreMotif } from "./CoreMotif";
+import { SectionGraphics } from "./SectionGraphics";
 
 export function Philosophy() {
   return (
     <section id="company" className="relative py-24 lg:py-36 overflow-hidden">
+      <SectionGraphics diagonal="tl-br" gridOpacity={0.3} />
       <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-[720px] h-[720px] pointer-events-none hidden md:block">
         <CoreMotif opacity={0.035} rotate={-12} />
       </div>
