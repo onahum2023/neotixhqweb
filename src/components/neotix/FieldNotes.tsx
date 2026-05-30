@@ -1,6 +1,7 @@
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { listPublishedFieldNotes } from "@/lib/field-notes.functions";
+import { SectionGraphics } from "./SectionGraphics";
 
 const placeholderNotes = [
   {
@@ -47,6 +48,7 @@ export function FieldNotes() {
             "radial-gradient(ellipse 50% 60% at 80% 20%, oklch(0.66 0.22 295 / 0.08), transparent 70%)",
         }}
       />
+      <SectionGraphics diagonal="tr-bl" gridOpacity={0.3} />
       <div className="absolute inset-0 bg-noise opacity-[0.03] mix-blend-overlay pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">

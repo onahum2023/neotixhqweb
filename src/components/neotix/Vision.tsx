@@ -1,4 +1,5 @@
 import { CoreMotif } from "./CoreMotif";
+import { SectionGraphics } from "./SectionGraphics";
 
 export function Vision() {
   return (
@@ -8,6 +9,7 @@ export function Vision() {
       style={{ backgroundColor: "var(--color-surface-deep)" }}
     >
       <div className="absolute inset-0 bg-atmos-violet opacity-60 pointer-events-none" />
+      <SectionGraphics diagonal="tr-bl" gridOpacity={0.35} />
       <div className="absolute -right-40 -top-20 w-[680px] h-[680px] pointer-events-none">
         <CoreMotif opacity={0.045} rotate={18} />
       </div>
