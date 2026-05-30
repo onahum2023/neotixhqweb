@@ -61,7 +61,7 @@ export function Products() {
         }}
       />
       <div className="absolute inset-0 bg-grid-soft opacity-30 pointer-events-none mask-fade-edges" />
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
             Studio
