@@ -1,4 +1,5 @@
 import { NeotixMark } from "../NeotixMark";
+import { CoreMotif } from "./CoreMotif";
 
 function LinkedInIcon() {
   return (
