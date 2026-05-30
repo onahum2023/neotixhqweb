@@ -15,8 +15,8 @@ export function ClosingCTA() {
           The next wave of AI will not be defined by more answers.
         </h2>
         <p className="mt-8 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          It will be defined by systems that understand context, preserve continuity, and
-          improve how people make decisions.
+          It will be defined by systems that preserve continuity, understand context, and help
+          people act with better judgment.
         </p>
         <div className="mt-12">
           <a

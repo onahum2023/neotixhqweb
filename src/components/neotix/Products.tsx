@@ -46,10 +46,10 @@ export function Products() {
             Studio
           </p>
           <h2 className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-balance">
-            Inside the NeotixHQ studio.
+            Early systems from NeotixHQ.
           </h2>
           <p className="mt-5 text-base text-muted-foreground leading-relaxed">
-            Our early systems explore how AI can preserve context, improve judgment, and reduce
+            Our first systems explore how AI can preserve context, improve judgment, and reduce
             friction in high-cognitive-load workflows.
           </p>
         </div>
@@ -60,7 +60,7 @@ export function Products() {
             name="Meridian"
             tagline="Exploring temporal memory for modern work."
             status="In development"
-            description="Meridian investigates how conversations can become structured memory, helping important patterns, decisions, and ideas resurface when they matter."
+            description="Meridian explores how conversations can become structured memory, helping important patterns, decisions, and ideas resurface when they matter."
             visual={<MeridianVisual />}
           />
           <SystemCard
@@ -68,7 +68,7 @@ export function Products() {
             name="Augment-Labs"
             tagline="Exploring AI-assisted hiring workflows."
             status="MVP"
-            description="Augment-Labs investigates how AI can help hiring managers turn job requirements, candidate signals, and interview preparation into a clearer decision workflow."
+            description="Augment-Labs explores how AI can help hiring managers turn job requirements, candidate signals, and interview preparation into a clearer decision workflow."
             visual={<AugmentVisual />}
           />
         </div>
