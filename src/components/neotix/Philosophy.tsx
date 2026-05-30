@@ -16,8 +16,8 @@ export function Philosophy() {
             and human-centered systems design.
           </p>
           <p>
-            We are focused on a simple but important pattern: people do not need more
-            information. They need systems that help them
+            We are focused on a simple pattern: people do not need more information. They need
+            systems that help them
             <span className="text-foreground"> recognize what matters, preserve what matters, and act when it matters.</span>
           </p>
         </div>
