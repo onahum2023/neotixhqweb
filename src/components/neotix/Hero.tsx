@@ -36,7 +36,7 @@ export function Hero() {
       </div>
 
       {/* Mission flows as part of the hero — no divider, no separate background */}
-      <div className="relative mt-20 lg:mt-28">
+      <div className="relative mt-10 lg:mt-14">
         <Mission />
       </div>
     </section>
