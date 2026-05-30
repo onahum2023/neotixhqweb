@@ -34,6 +34,12 @@ export function Hero() {
           <SignalConverge />
         </div>
       </div>
+
+      {/* Mission flows as part of the hero — no divider, no separate background */}
+      <div className="relative mt-20 lg:mt-28">
+        <Mission />
+      </div>
     </section>
   );
 }
+
