@@ -103,14 +103,28 @@ function StudioIndex() {
                     {new Date(n.updated_at).toLocaleDateString()}
                   </td>
                   <td className="px-5 py-4 text-right">
-                    <button
-                      onClick={() => {
-                        if (confirm(`Delete "${n.title}"?`)) deleteMutation.mutate(n.id);
-                      }}
-                      className="text-xs text-muted-foreground hover:text-destructive"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex items-center justify-end gap-4">
+                      <button
+                        onClick={() =>
+                          statusMutation.mutate({
+                            id: n.id,
+                            status: n.status === "published" ? "draft" : "published",
+                          })
+                        }
+                        disabled={statusMutation.isPending}
+                        className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
+                      >
+                        {n.status === "published" ? "Unpublish" : "Publish"}
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (confirm(`Delete "${n.title}"?`)) deleteMutation.mutate(n.id);
+                        }}
+                        className="text-xs text-muted-foreground hover:text-destructive"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
