@@ -35,11 +35,20 @@ export function ClosingCTA() {
   };
 
   return (
-    <section id="contact" className="relative py-32 lg:py-44 border-t border-border overflow-hidden">
+    <section id="contact" className="relative py-28 lg:py-40 overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "var(--gradient-radial)" }}
       />
+      <div className="absolute inset-0 bg-atmos-violet pointer-events-none" />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 50% at 50% 50%, oklch(0.66 0.22 295 / 0.18), transparent 70%)",
+        }}
+      />
+      <div className="absolute inset-0 bg-grid-soft mask-fade-edges opacity-40 pointer-events-none" />
       <div className="relative mx-auto max-w-4xl px-6 lg:px-10 text-center">
         <div className="flex justify-center mb-10">
           <NeotixMark size={56} glow />
