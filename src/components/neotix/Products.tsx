@@ -14,7 +14,15 @@ type SystemProps = {
 
 function SystemCard({ name, label, tagline, description, status, visual }: SystemProps) {
   return (
-    <article className="group relative rounded-xl border border-border bg-surface/30 backdrop-blur p-5 transition-all hover:border-accent/30 hover:bg-surface/60">
+    <article className="group relative rounded-xl border border-white/[0.06] bg-surface-deep p-5 shadow-card transition-all hover:border-accent/40 hover-glow-cyan overflow-hidden">
+      {/* left-edge violet beam accent */}
+      <div
+        className="absolute inset-y-4 left-0 w-px opacity-60"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent, oklch(0.66 0.22 295 / 0.6), transparent)",
+        }}
+      />
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
           {label}
