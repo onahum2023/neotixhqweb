@@ -1,12 +1,11 @@
 /**
- * Hero visual — dense streams of fragmented information flow from the left
- * and are absorbed into the Neotix Core: a layered hexagonal device with a
- * bright violet/cyan center. Structured outputs emit as circuit lines on
- * the right, suggesting context turned into action.
+ * Hero visual — dense, organic streams of fragmented information flow from
+ * the left and converge into the Neotix Core: layered concentric hexagons
+ * with a bright violet/cyan center. Structured outputs emit as circuit
+ * lines on the right.
  */
 
 function hexPoints(cx: number, cy: number, r: number) {
-  // pointy-top hexagon
   const pts: { x: number; y: number }[] = [];
   for (let i = 0; i < 6; i++) {
     const a = (Math.PI / 3) * i - Math.PI / 2;
@@ -17,87 +16,107 @@ function hexPoints(cx: number, cy: number, r: number) {
 
 function hexPath(cx: number, cy: number, r: number) {
   const pts = hexPoints(cx, cy, r);
-  return pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ") + " Z";
+  return (
+    pts
+      .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`)
+      .join(" ") + " Z"
+  );
+}
+
+// Deterministic pseudo-random
+function rand(seed: number) {
+  const x = Math.sin(seed * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
 }
 
 export function SignalConverge() {
-  const W = 900;
-  const H = 600;
-  const cx = 640;
-  const cy = 300;
+  const W = 1000;
+  const H = 700;
+  const cx = 740;
+  const cy = 350;
 
-  // Many flowing streams — random-ish but deterministic
-  const STREAM_COUNT = 64;
+  // Dense flowing streams spanning full vertical height
+  const STREAM_COUNT = 110;
   const streams = Array.from({ length: STREAM_COUNT }, (_, i) => {
-    const t = i / (STREAM_COUNT - 1);
-    // Vertical fan on the left side
-    const startX = 60 + ((i * 37) % 180);
-    const startY = 40 + t * (H - 80) + ((i * 53) % 30) - 15;
-    // Control points bend toward the core
-    const cpx1 = startX + 140 + ((i * 71) % 90);
-    const cpy1 = startY + ((i * 91) % 80) - 40;
-    const cpx2 = cx - 160 + ((i * 29) % 80);
-    const cpy2 = cy + ((i * 113) % 200) - 100;
-    const endX = cx - 18; // arrive at core left edge
-    const endY = cy + ((i * 17) % 60) - 30;
-    const opacity = 0.18 + ((i * 13) % 35) / 100;
-    const width = 0.4 + ((i * 7) % 6) / 10;
-    const hue = i % 3; // 0 violet, 1 cyan, 2 white
-    const delay = (i % 12) * 0.4;
+    const r1 = rand(i + 1);
+    const r2 = rand(i + 101);
+    const r3 = rand(i + 201);
+    const r4 = rand(i + 301);
+
+    // Start widely fanned across left side
+    const startX = 20 + r1 * 220;
+    const startY = 20 + (i / STREAM_COUNT) * (H - 40) + (r2 - 0.5) * 40;
+
+    // First control point — large lateral spread
+    const cpx1 = startX + 180 + r3 * 220;
+    const cpy1 = startY + (r4 - 0.5) * 180;
+
+    // Second control point — pulls toward core
+    const cpx2 = cx - 220 + r1 * 120;
+    const cpy2 = cy + (r2 - 0.5) * 260;
+
+    // Converge at core left edge
+    const endX = cx - 8;
+    const endY = cy + (r3 - 0.5) * 24;
+
+    const hue = i % 4 === 0 ? 1 : i % 7 === 0 ? 2 : 0; // mostly violet, some cyan/white
+    const opacity = 0.35 + r2 * 0.5;
+    const width = 0.5 + r3 * 0.9;
+    const delay = (i % 16) * 0.35;
+
     return {
       d: `M ${startX} ${startY} C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${endX} ${endY}`,
+      hue,
       opacity,
       width,
-      hue,
       delay,
     };
   });
 
-  // Scattered particle fragments along the streams area
-  const PARTICLES = 70;
+  // Scattered particles across the left/middle field
+  const PARTICLES = 130;
   const particles = Array.from({ length: PARTICLES }, (_, i) => {
-    const x = 70 + ((i * 53) % 460);
-    const y = 30 + ((i * 97) % (H - 60));
-    const kind = i % 5; // dot, ring, square, micro-square, micro-dot
+    const r1 = rand(i + 500);
+    const r2 = rand(i + 600);
+    const r3 = rand(i + 700);
+    // Bias toward left/middle, sparse near core
+    const x = 30 + r1 * (cx - 80);
+    const y = 20 + r2 * (H - 40);
+    const kind = i % 5;
     const hue = i % 3;
-    const delay = (i % 14) * 0.3;
-    return { x, y, kind, hue, delay, size: 1 + ((i * 11) % 4) };
+    const size = 1 + r3 * 2.4;
+    const delay = (i % 18) * 0.28;
+    return { x, y, kind, hue, size, delay };
   });
 
   // Output circuit lines on the right
-  const OUTPUTS = 9;
+  const OUTPUTS = 11;
   const outputs = Array.from({ length: OUTPUTS }, (_, i) => {
-    const startX = cx + 90;
-    const startY = cy - 140 + i * 35;
-    const midX = startX + 60 + (i % 3) * 30;
-    const endX = W - 20;
-    const endY = startY + (i % 2 === 0 ? -10 : 10);
+    const startX = cx + 110;
+    const startY = cy - 180 + i * 36;
+    const midX = startX + 70 + (i % 3) * 40;
+    const endX = W - 10;
+    const endY = startY + (i % 2 === 0 ? -14 : 14);
     return {
       d: `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`,
-      endX,
-      endY,
-      delay: i * 0.2,
+      sx: startX,
+      sy: startY,
+      ex: endX,
+      ey: endY,
     };
   });
 
   const colorFor = (hue: number) =>
     hue === 0 ? "#8B5CF6" : hue === 1 ? "#22D3EE" : "#F4F1EA";
 
-  // Core hex layers
-  const outerHex = hexPath(cx, cy, 120);
-  const midHex = hexPath(cx, cy, 90);
-  const innerHex = hexPath(cx, cy, 60);
-  const tinyHex = hexPath(cx, cy, 28);
-
-  // Vertices for output anchor dots
-  const outerPts = hexPoints(cx, cy, 120);
+  const outerHex = hexPath(cx, cy, 130);
+  const midHex = hexPath(cx, cy, 100);
+  const innerHex = hexPath(cx, cy, 72);
+  const tinyHex = hexPath(cx, cy, 38);
+  const outerPts = hexPoints(cx, cy, 130);
 
   return (
-    <div className="relative w-full aspect-[3/2] max-w-[720px] mx-auto">
-      <div
-        className="absolute inset-0 rounded-full blur-3xl opacity-60"
-        style={{ background: "var(--gradient-radial)" }}
-      />
+    <div className="relative w-full aspect-[10/7] max-w-[820px] mx-auto">
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="relative w-full h-full"
@@ -107,43 +126,35 @@ export function SignalConverge() {
         <defs>
           <linearGradient id="stream-violet" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0" />
-            <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.85" />
+            <stop offset="40%" stopColor="#8B5CF6" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="1" />
           </linearGradient>
           <linearGradient id="stream-cyan" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#22D3EE" stopOpacity="0" />
-            <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.95" />
+            <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="1" />
           </linearGradient>
           <linearGradient id="stream-white" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#F4F1EA" stopOpacity="0" />
-            <stop offset="60%" stopColor="#F4F1EA" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.7" />
+            <stop offset="60%" stopColor="#C4B5FD" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.95" />
           </linearGradient>
 
-          <radialGradient id="core-center" cx="50%" cy="50%" r="50%">
+          <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#F4F1EA" stopOpacity="1" />
-            <stop offset="25%" stopColor="#C4B5FD" stopOpacity="0.9" />
-            <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.4" />
+            <stop offset="15%" stopColor="#E9D5FF" stopOpacity="0.95" />
+            <stop offset="40%" stopColor="#8B5CF6" stopOpacity="0.55" />
             <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="core-halo" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.4" />
+            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.45" />
             <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.18" />
             <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
           </radialGradient>
-          <linearGradient id="hex-edge" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#8B5CF6" />
-            <stop offset="100%" stopColor="#22D3EE" />
-          </linearGradient>
-
-          <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="2" />
-          </filter>
         </defs>
 
         {/* Outer halo glow behind the core */}
-        <circle cx={cx} cy={cy} r="240" fill="url(#core-halo)" />
+        <circle cx={cx} cy={cy} r="280" fill="url(#core-halo)" />
 
         {/* Flowing streams */}
         <g>
@@ -184,16 +195,16 @@ export function SignalConverge() {
                 }}
               >
                 {p.kind === 0 && (
-                  <circle cx={p.x} cy={p.y} r={p.size} fill={c} fillOpacity="0.85" />
+                  <circle cx={p.x} cy={p.y} r={p.size} fill={c} fillOpacity="0.9" />
                 )}
                 {p.kind === 1 && (
                   <circle
                     cx={p.x}
                     cy={p.y}
-                    r={p.size + 1.5}
+                    r={p.size + 1.6}
                     stroke={c}
-                    strokeOpacity="0.55"
-                    strokeWidth="0.7"
+                    strokeOpacity="0.6"
+                    strokeWidth="0.8"
                   />
                 )}
                 {p.kind === 2 && (
@@ -203,7 +214,7 @@ export function SignalConverge() {
                     width={p.size * 2}
                     height={p.size * 2}
                     fill={c}
-                    fillOpacity="0.7"
+                    fillOpacity="0.8"
                   />
                 )}
                 {p.kind === 3 && (
@@ -213,12 +224,12 @@ export function SignalConverge() {
                     width={p.size * 2}
                     height={p.size * 2}
                     stroke={c}
-                    strokeOpacity="0.5"
-                    strokeWidth="0.6"
+                    strokeOpacity="0.55"
+                    strokeWidth="0.7"
                   />
                 )}
                 {p.kind === 4 && (
-                  <circle cx={p.x} cy={p.y} r="0.8" fill="#F4F1EA" fillOpacity="0.9" />
+                  <circle cx={p.x} cy={p.y} r="0.9" fill="#F4F1EA" fillOpacity="0.95" />
                 )}
               </g>
             );
@@ -232,49 +243,40 @@ export function SignalConverge() {
               <path
                 d={o.d}
                 stroke="#22D3EE"
-                strokeOpacity="0.45"
-                strokeWidth="0.8"
+                strokeOpacity="0.55"
+                strokeWidth="0.9"
                 fill="none"
                 strokeLinecap="square"
               />
-              <circle
-                cx={o.endX}
-                cy={o.endY}
-                r="2"
-                fill="#22D3EE"
-                fillOpacity="0.8"
-              />
+              <circle cx={o.sx} cy={o.sy} r="1.6" fill="#22D3EE" fillOpacity="0.9" />
+              <circle cx={o.ex} cy={o.ey} r="2.2" fill="#22D3EE" fillOpacity="0.95" />
             </g>
           ))}
         </g>
 
-        {/* Core — layered hexagons */}
-        <g className="animate-pulse-glow" style={{ transformOrigin: `${cx}px ${cy}px` }}>
-          {/* Outer hex with gradient edge */}
-          <path d={outerHex} stroke="url(#hex-edge)" strokeWidth="1.5" strokeOpacity="0.85" />
-          {/* Inner ring hexes */}
+        {/* Core — layered concentric hexagons */}
+        <g>
+          <path d={outerHex} stroke="#22D3EE" strokeOpacity="0.7" strokeWidth="1.1" />
           <path d={midHex} stroke="#22D3EE" strokeOpacity="0.55" strokeWidth="1" />
-          <path d={innerHex} stroke="#8B5CF6" strokeOpacity="0.6" strokeWidth="1" />
-          <path d={tinyHex} stroke="#F4F1EA" strokeOpacity="0.7" strokeWidth="0.8" />
+          <path d={innerHex} stroke="#8B5CF6" strokeOpacity="0.7" strokeWidth="1" />
+          <path d={tinyHex} stroke="#F4F1EA" strokeOpacity="0.6" strokeWidth="0.8" />
 
           {/* Vertex nodes on outer hex */}
           {outerPts.map((p, i) => (
-            <g key={`v-${i}`}>
-              <circle cx={p.x} cy={p.y} r="3.5" fill={i % 2 === 0 ? "#8B5CF6" : "#22D3EE"} />
-              <circle
-                cx={p.x}
-                cy={p.y}
-                r="7"
-                stroke={i % 2 === 0 ? "#8B5CF6" : "#22D3EE"}
-                strokeOpacity="0.35"
-              />
-            </g>
+            <circle
+              key={`v-${i}`}
+              cx={p.x}
+              cy={p.y}
+              r="2.6"
+              fill={i % 2 === 0 ? "#22D3EE" : "#8B5CF6"}
+              fillOpacity="0.95"
+            />
           ))}
 
           {/* Bright center */}
-          <circle cx={cx} cy={cy} r="60" fill="url(#core-center)" />
-          <circle cx={cx} cy={cy} r="6" fill="#F4F1EA" />
-          <circle cx={cx} cy={cy} r="14" stroke="#F4F1EA" strokeOpacity="0.55" />
+          <circle cx={cx} cy={cy} r="80" fill="url(#core-glow)" className="animate-pulse-glow" style={{ transformOrigin: `${cx}px ${cy}px` }} />
+          <circle cx={cx} cy={cy} r="4" fill="#F4F1EA" />
+          <circle cx={cx} cy={cy} r="10" stroke="#F4F1EA" strokeOpacity="0.55" />
         </g>
       </svg>
     </div>
