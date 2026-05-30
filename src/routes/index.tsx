@@ -39,14 +39,15 @@ function Index() {
     <main className="relative min-h-screen bg-background text-foreground">
       <Nav />
       <Hero />
+      <BeamDivider />
       <Vision />
-      <CoreDivider />
+      <SignalDivider />
       <Positioning />
-      <CoreDivider />
+      <FragmentDivider />
       <Products />
-      <CoreDivider />
+      <SignalDivider />
       <Philosophy />
-      <CoreDivider />
+      <BeamDivider />
       <FieldNotes />
       <ClosingCTA />
       <Footer />
