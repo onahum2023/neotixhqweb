@@ -74,6 +74,8 @@ export function SignalConverge() {
     const endY = startY + (i % 2 === 0 ? -10 : 10);
     return {
       d: `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`,
+      endX,
+      endY,
       delay: i * 0.2,
     };
   });
