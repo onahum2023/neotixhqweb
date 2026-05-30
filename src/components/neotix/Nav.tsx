@@ -9,9 +9,9 @@ export function Nav() {
           <span className="text-sm font-semibold tracking-tight">NeotixHQ</span>
         </a>
         <nav className="hidden md:flex items-center gap-9 text-sm text-muted-foreground">
-          <a href="#products" className="hover:text-foreground transition-colors">Products</a>
-          <a href="#philosophy" className="hover:text-foreground transition-colors">Philosophy</a>
-          <a href="#positioning" className="hover:text-foreground transition-colors">Approach</a>
+          <a href="#vision" className="hover:text-foreground transition-colors">Vision</a>
+          <a href="#principles" className="hover:text-foreground transition-colors">Principles</a>
+          <a href="#systems" className="hover:text-foreground transition-colors">Systems</a>
           <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
         </nav>
         <a

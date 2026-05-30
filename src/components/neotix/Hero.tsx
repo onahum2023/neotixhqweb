@@ -3,7 +3,6 @@ import { SignalConverge } from "./SignalConverge";
 export function Hero() {
   return (
     <section id="top" className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 overflow-hidden">
-      {/* background grid + gradient */}
       <div className="absolute inset-0 bg-grid mask-fade-edges opacity-60" />
       <div
         className="absolute inset-0 pointer-events-none"
@@ -14,21 +13,21 @@ export function Hero() {
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface/60 backdrop-blur text-xs text-muted-foreground tracking-wide">
             <span className="size-1.5 rounded-full bg-accent" />
-            NeotixHQ — Cognitive systems
+            NeotixHQ — Cognitive systems company
           </div>
           <h1 className="mt-8 text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-balance">
-            Building cognitive systems for the next layer of work.
+            Building cognitive systems for people working beyond the limits of information.
           </h1>
           <p className="mt-7 text-lg text-muted-foreground max-w-xl leading-relaxed">
-            NeotixHQ designs AI-native products that transform conversations, workflows, and
-            fragmented signals into structured context, sharper decisions, and measurable action.
+            NeotixHQ is an AI-native product company designing systems that help people make
+            sense of conversations, workflows, signals, and decisions in complex environments.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
-              href="#products"
+              href="#vision"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-[0_0_40px_-10px_rgba(139,92,246,0.6)]"
             >
-              Explore products
+              Explore the vision
               <span aria-hidden>→</span>
             </a>
             <a

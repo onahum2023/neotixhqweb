@@ -8,6 +8,10 @@ const principles = [
     body: "We build around real operational friction, not isolated AI tricks.",
   },
   {
+    title: "Memory over chat history",
+    body: "We believe the next layer of AI needs structured continuity, not disposable conversations.",
+  },
+  {
     title: "Decisions over answers",
     body: "The goal is not more output. The goal is better judgment and better action.",
   },
@@ -41,6 +45,15 @@ function Glyph({ i }: { i: number }) {
       )}
       {i === 2 && (
         <>
+          <circle cx="10" cy="10" r="2.5" fill={`url(#pg-${i})`} />
+          <circle cx="22" cy="18" r="2.5" fill={`url(#pg-${i})`} />
+          <circle cx="14" cy="28" r="2.5" fill={`url(#pg-${i})`} />
+          <circle cx="30" cy="30" r="2.5" fill={`url(#pg-${i})`} />
+          <path d="M10 10 L22 18 L14 28 L30 30" stroke={`url(#pg-${i})`} strokeWidth="1" strokeOpacity="0.6" fill="none" />
+        </>
+      )}
+      {i === 3 && (
+        <>
           <path d="M8 26 L18 16 L24 22 L34 10" stroke={`url(#pg-${i})`} strokeWidth="1.5" fill="none" />
           <circle cx="34" cy="10" r="3" fill={`url(#pg-${i})`} />
         </>
@@ -51,30 +64,25 @@ function Glyph({ i }: { i: number }) {
 
 export function Positioning() {
   return (
-    <section id="positioning" className="relative py-28 lg:py-40 border-t border-border">
+    <section id="principles" className="relative py-28 lg:py-40 border-t border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            Positioning
+            Principles
           </p>
           <h2 className="mt-4 text-4xl md:text-5xl font-semibold tracking-tight text-balance">
-            From data to context. From context to decisions.
+            Principles behind every NeotixHQ system.
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            NeotixHQ sits at the intersection of AI, product engineering, workflow intelligence,
-            and human-centered systems design. Our products are built for people and teams
-            operating in environments where information is abundant, but clarity is scarce.
-          </p>
         </div>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-6">
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {principles.map((p, i) => (
             <div
               key={p.title}
-              className="group rounded-2xl border border-border bg-surface/60 p-8 transition-all hover:border-primary/40 hover:bg-surface/90"
+              className="group rounded-2xl border border-border bg-surface/60 p-7 transition-all hover:border-primary/40 hover:bg-surface/90"
             >
               <Glyph i={i} />
-              <h3 className="mt-6 text-xl font-semibold tracking-tight">{p.title}</h3>
+              <h3 className="mt-6 text-lg font-semibold tracking-tight">{p.title}</h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{p.body}</p>
             </div>
           ))}
