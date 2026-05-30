@@ -49,6 +49,8 @@
   --background: oklch(0.13 0.012 270);       /* #090A0F */
   --surface: oklch(0.18 0.014 270);          /* #12141C */
   --surface-alt: oklch(0.22 0.016 270);      /* #191C26 */
+  --surface-deep: oklch(0.155 0.018 280);    /* slightly darker, violet-tinged */
+  --surface-warm: oklch(0.185 0.012 60);     /* graphite with subtle warm tint */
   --foreground: oklch(0.95 0.012 85);        /* #F4F1EA off-white */
   --muted: oklch(0.22 0.016 270);
   --muted-foreground: oklch(0.72 0.012 270); /* #A8ABB8 */
