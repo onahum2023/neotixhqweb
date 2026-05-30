@@ -1,7 +1,14 @@
+import { CoreMotif } from "./CoreMotif";
+
 export function Philosophy() {
   return (
-    <section id="company" className="relative py-28 lg:py-40 border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-12">
+    <section id="company" className="relative py-24 lg:py-36 overflow-hidden">
+      <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-[720px] h-[720px] pointer-events-none hidden md:block">
+        <CoreMotif opacity={0.035} rotate={-12} />
+      </div>
+      <div className="absolute inset-0 bg-atmos-cyan opacity-40 pointer-events-none" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-12">
         <div className="lg:col-span-6">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
             Company
