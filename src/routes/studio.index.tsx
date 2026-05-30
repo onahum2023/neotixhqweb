@@ -35,6 +35,17 @@ function StudioIndex() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
   });
 
+  const statusMutation = useMutation({
+    mutationFn: (vars: { id: string; status: "draft" | "published" }) =>
+      setStatus({ data: vars }),
+    onSuccess: (_d, vars) => {
+      toast.success(vars.status === "published" ? "Published" : "Moved to draft");
+      qc.invalidateQueries({ queryKey: ["studio", "field-notes"] });
+      qc.invalidateQueries({ queryKey: ["field-notes", "published"] });
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Update failed"),
+  });
+
   return (
     <div>
       <div className="flex items-center justify-between">
