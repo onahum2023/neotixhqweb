@@ -93,15 +93,9 @@ function StepGlyph({ kind }: { kind: (typeof steps)[number]["glyph"] }) {
 
 export function Mission() {
   return (
-    <section
-      id="mission"
-      className="relative py-28 lg:py-36 overflow-hidden"
-      style={{ backgroundColor: "var(--color-surface-deep)" }}
-    >
-      <div className="absolute inset-0 bg-grid-soft mask-fade-edges opacity-30 pointer-events-none" />
-      <div className="absolute inset-0 bg-atmos-violet opacity-40 pointer-events-none" />
-
+    <div id="mission" className="relative">
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+
         {/* Headline */}
         <div className="text-center max-w-4xl mx-auto">
           <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-muted-foreground">
