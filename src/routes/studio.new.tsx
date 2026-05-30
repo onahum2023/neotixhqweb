@@ -45,7 +45,14 @@ function NewNote() {
   const [status, setStatus] = useState<"draft" | "published">("draft");
 
   const mutation = useMutation({
-    mutationFn: (input: Parameters<typeof upsert>[0]["data"]) => upsert({ data: input }),
+    mutationFn: (input: {
+      title: string;
+      slug: string;
+      category: string;
+      excerpt: string;
+      body: string;
+      status: "draft" | "published";
+    }) => upsert({ data: input }),
     onSuccess: () => {
       toast.success("Note created");
       qc.invalidateQueries({ queryKey: ["studio", "field-notes"] });
