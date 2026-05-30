@@ -52,7 +52,7 @@ export function FieldNotes() {
         <div className="mt-14 grid md:grid-cols-3 gap-px bg-border/60 border border-border rounded-2xl overflow-hidden">
           {items.slice(0, 3).map((n, i) => (
             <article
-              key={"id" in n ? n.id : `placeholder-${i}`}
+              key={`note-${i}`}
               className="group relative bg-background p-7 lg:p-8 flex flex-col min-h-[220px] transition-colors hover:bg-surface/60"
             >
               <div className="flex items-center justify-between">
