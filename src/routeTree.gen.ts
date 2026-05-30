@@ -13,6 +13,9 @@ import { Route as StudioRouteImport } from './routes/studio'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StudioIndexRouteImport } from './routes/studio.index'
+import { Route as StudioNewRouteImport } from './routes/studio.new'
+import { Route as StudioIdEditRouteImport } from './routes/studio.$id.edit'
 
 const StudioRoute = StudioRouteImport.update({
   id: '/studio',
@@ -34,39 +37,83 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioIndexRoute = StudioIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioNewRoute = StudioNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioIdEditRoute = StudioIdEditRouteImport.update({
+  id: '/$id/edit',
+  path: '/$id/edit',
+  getParentRoute: () => StudioRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/studio': typeof StudioRoute
+  '/studio': typeof StudioRouteWithChildren
+  '/studio/new': typeof StudioNewRoute
+  '/studio/': typeof StudioIndexRoute
+  '/studio/$id/edit': typeof StudioIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/studio': typeof StudioRoute
+  '/studio/new': typeof StudioNewRoute
+  '/studio': typeof StudioIndexRoute
+  '/studio/$id/edit': typeof StudioIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/studio': typeof StudioRoute
+  '/studio': typeof StudioRouteWithChildren
+  '/studio/new': typeof StudioNewRoute
+  '/studio/': typeof StudioIndexRoute
+  '/studio/$id/edit': typeof StudioIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/sitemap.xml' | '/studio'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/sitemap.xml'
+    | '/studio'
+    | '/studio/new'
+    | '/studio/'
+    | '/studio/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/sitemap.xml' | '/studio'
-  id: '__root__' | '/' | '/login' | '/sitemap.xml' | '/studio'
+  to:
+    | '/'
+    | '/login'
+    | '/sitemap.xml'
+    | '/studio/new'
+    | '/studio'
+    | '/studio/$id/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/sitemap.xml'
+    | '/studio'
+    | '/studio/new'
+    | '/studio/'
+    | '/studio/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  StudioRoute: typeof StudioRoute
+  StudioRoute: typeof StudioRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -99,14 +146,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/studio/': {
+      id: '/studio/'
+      path: '/'
+      fullPath: '/studio/'
+      preLoaderRoute: typeof StudioIndexRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/studio/new': {
+      id: '/studio/new'
+      path: '/new'
+      fullPath: '/studio/new'
+      preLoaderRoute: typeof StudioNewRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/studio/$id/edit': {
+      id: '/studio/$id/edit'
+      path: '/$id/edit'
+      fullPath: '/studio/$id/edit'
+      preLoaderRoute: typeof StudioIdEditRouteImport
+      parentRoute: typeof StudioRoute
+    }
   }
 }
+
+interface StudioRouteChildren {
+  StudioNewRoute: typeof StudioNewRoute
+  StudioIndexRoute: typeof StudioIndexRoute
+  StudioIdEditRoute: typeof StudioIdEditRoute
+}
+
+const StudioRouteChildren: StudioRouteChildren = {
+  StudioNewRoute: StudioNewRoute,
+  StudioIndexRoute: StudioIndexRoute,
+  StudioIdEditRoute: StudioIdEditRoute,
+}
+
+const StudioRouteWithChildren =
+  StudioRoute._addFileChildren(StudioRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  StudioRoute: StudioRoute,
+  StudioRoute: StudioRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
