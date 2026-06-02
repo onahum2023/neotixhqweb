@@ -64,11 +64,11 @@ export function Footer() {
             <span className="text-sm font-semibold tracking-tight">NeotixHQ</span>
           </div>
           <p className="mt-5 text-sm text-foreground/85 leading-relaxed">
-            Cognitive systems for better decisions.
+            An AI-native studio for the cognitive layer of work.
           </p>
           <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-sm">
-            NeotixHQ is an AI-native product studio building the cognitive layer between
-            information and judgment.
+            NeotixHQ is a cognitive systems studio exploring the layer between
+            information and judgment — through research, advisory, and prototypes.
           </p>
           <p className="mt-6 text-xs tracking-wide text-muted-foreground">
             Fragmented signals → structured context → better decisions.
@@ -79,14 +79,13 @@ export function Footer() {
           <Column label="Explore">
             <li><a href="#vision" className="hover:text-foreground transition-colors">Vision</a></li>
             <li><a href="#principles" className="hover:text-foreground transition-colors">Principles</a></li>
-            <li><a href="#studio" className="hover:text-foreground transition-colors">Studio</a></li>
-            <li><a href="#field-notes" className="hover:text-foreground transition-colors">Field Notes</a></li>
-            <li><a href="#contact" className="hover:text-foreground transition-colors">Contact</a></li>
+            <li><a href="#explore" className="hover:text-foreground transition-colors">What We Explore</a></li>
+            <li><a href="#engage" className="hover:text-foreground transition-colors">How We Engage</a></li>
           </Column>
-          <Column label="Systems">
-            <li><a href="#studio" className="hover:text-foreground transition-colors">Meridian <span className="text-muted-foreground/60">by NeotixHQ</span></a></li>
-            <li><a href="#studio" className="hover:text-foreground transition-colors">Calix <span className="text-muted-foreground/60">by NeotixHQ</span></a></li>
-            <li><a href="#studio" className="hover:text-foreground transition-colors">Orin <span className="text-muted-foreground/60">by NeotixHQ</span></a></li>
+          <Column label="Studio">
+            <li><a href="#company" className="hover:text-foreground transition-colors">Company</a></li>
+            <li><a href="/field-notes" className="hover:text-foreground transition-colors">Field Notes</a></li>
+            <li><a href="#contact" className="hover:text-foreground transition-colors">Contact</a></li>
           </Column>
           <Column label="Connect">
             <li>

@@ -16,7 +16,7 @@ export function Philosophy() {
             Company
           </p>
           <h2 className="mt-5 text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-balance">
-            A product company for the cognitive layer of work.
+            An AI-native studio for the cognitive layer of work.
           </h2>
         </div>
         <div className="lg:col-span-6 lg:pt-20 space-y-6 text-lg text-muted-foreground leading-relaxed">
