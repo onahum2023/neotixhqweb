@@ -78,15 +78,15 @@ export function Footer() {
 
         <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10">
           <Column label="Explore">
-            <li><a href="#vision" className="hover:text-foreground transition-colors">Vision</a></li>
-            <li><a href="#principles" className="hover:text-foreground transition-colors">Principles</a></li>
-            <li><a href="#explore" className="hover:text-foreground transition-colors">What We Explore</a></li>
-            <li><a href="#engage" className="hover:text-foreground transition-colors">How We Engage</a></li>
+            <li><Link to="/" hash="vision" className="hover:text-foreground transition-colors">Vision</Link></li>
+            <li><Link to="/" hash="principles" className="hover:text-foreground transition-colors">Principles</Link></li>
+            <li><Link to="/" hash="explore" className="hover:text-foreground transition-colors">What We Explore</Link></li>
+            <li><Link to="/" hash="engage" className="hover:text-foreground transition-colors">How We Engage</Link></li>
           </Column>
           <Column label="Studio">
-            <li><a href="#company" className="hover:text-foreground transition-colors">Company</a></li>
-            <li><a href="/field-notes" className="hover:text-foreground transition-colors">Field Notes</a></li>
-            <li><a href="#contact" className="hover:text-foreground transition-colors">Contact</a></li>
+            <li><Link to="/" hash="company" className="hover:text-foreground transition-colors">Company</Link></li>
+            <li><Link to="/field-notes" className="hover:text-foreground transition-colors">Field Notes</Link></li>
+            <li><Link to="/" hash="contact" className="hover:text-foreground transition-colors">Contact</Link></li>
           </Column>
           <Column label="Connect">
             <li>
