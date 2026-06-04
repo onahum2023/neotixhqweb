@@ -12,7 +12,7 @@ export function Nav() {
         <nav className="hidden md:flex items-center gap-9 text-sm text-muted-foreground">
           <Link to="/" hash="vision" className="hover:text-foreground transition-colors">Vision</Link>
           <Link to="/" hash="principles" className="hover:text-foreground transition-colors">Principles</Link>
-          <Link to="/" hash="explore" className="hover:text-foreground transition-colors">Explore</Link>
+          <Link to="/" hash="explore" className="hover:text-foreground transition-colors">Explorations</Link>
           <Link to="/" hash="engage" className="hover:text-foreground transition-colors">Engage</Link>
           <Link to="/field-notes" className="hover:text-foreground transition-colors">Field Notes</Link>
           <Link to="/" hash="company" className="hover:text-foreground transition-colors">Company</Link>

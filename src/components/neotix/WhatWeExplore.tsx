@@ -48,7 +48,7 @@ export function WhatWeExplore() {
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            What We Explore
+            Explorations
           </p>
           <h2 className="mt-4 text-4xl md:text-5xl font-semibold tracking-tight text-balance">
             NeotixHQ explores the intersection of context, memory, and judgment.
