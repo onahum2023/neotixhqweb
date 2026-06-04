@@ -71,9 +71,6 @@ export function Footer() {
             NeotixHQ is a cognitive systems studio exploring the layer between
             information and judgment — through research, advisory, and prototypes.
           </p>
-          <p className="mt-6 text-xs tracking-wide text-muted-foreground">
-            Fragmented signals → structured context → better decisions.
-          </p>
         </div>
 
         <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10">
