@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { NeotixMark } from "../NeotixMark";
 import { CoreMotif } from "./CoreMotif";
 
