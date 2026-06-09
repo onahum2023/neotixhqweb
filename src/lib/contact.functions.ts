@@ -56,7 +56,9 @@ export const listContactMessages = createServerFn({ method: "POST" })
     if (data.status !== "all") q = q.eq("status", data.status);
 
     if (data.search) {
-      const s = data.search.replace(/[%,]/g, " ").trim();
+      // Strip all PostgREST filter-expression special characters to prevent
+      // filter injection via the .or() expression.
+      const s = data.search.replace(/[%,()*:."'\\]/g, " ").trim();
       if (s) {
         q = q.or(
           `name.ilike.%${s}%,email.ilike.%${s}%,message.ilike.%${s}%`,
