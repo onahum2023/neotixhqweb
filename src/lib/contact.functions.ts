@@ -30,6 +30,23 @@ export const submitContactMessage = createServerFn({ method: "POST" })
       message: data.message,
     });
     if (error) throw new Error(error.message);
+
+    // Fire off confirmation email — don't block form success on send issues.
+    try {
+      const { enqueueTemplateEmail } = await import("@/lib/email/send-internal.server");
+      const result = await enqueueTemplateEmail({
+        templateName: "contact-confirmation",
+        recipientEmail: data.email,
+        idempotencyKey: `contact-confirm-${data.email}-${Date.now()}`,
+        templateData: { name: data.name, message: data.message },
+      });
+      if (!result.success) {
+        console.warn("Contact confirmation email not enqueued", result);
+      }
+    } catch (e) {
+      console.error("Contact confirmation email failed", e);
+    }
+
     return { ok: true };
   });
 
