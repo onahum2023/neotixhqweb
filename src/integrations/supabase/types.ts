@@ -135,9 +135,11 @@ export type Database = {
           category: string
           created_at: string
           excerpt: string
+          external_url: string | null
           id: string
           published_at: string | null
           slug: string
+          source: string | null
           status: Database["public"]["Enums"]["field_note_status"]
           title: string
           updated_at: string
@@ -148,9 +150,11 @@ export type Database = {
           category: string
           created_at?: string
           excerpt?: string
+          external_url?: string | null
           id?: string
           published_at?: string | null
           slug: string
+          source?: string | null
           status?: Database["public"]["Enums"]["field_note_status"]
           title: string
           updated_at?: string
@@ -161,9 +165,11 @@ export type Database = {
           category?: string
           created_at?: string
           excerpt?: string
+          external_url?: string | null
           id?: string
           published_at?: string | null
           slug?: string
+          source?: string | null
           status?: Database["public"]["Enums"]["field_note_status"]
           title?: string
           updated_at?: string

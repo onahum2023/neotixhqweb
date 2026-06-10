@@ -37,6 +37,8 @@ function EditNote() {
   const [category, setCategory] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [body, setBody] = useState("");
+  const [externalUrl, setExternalUrl] = useState("");
+  const [source, setSource] = useState("");
   const [status, setStatus] = useState<"draft" | "published">("draft");
 
   useEffect(() => {
@@ -46,6 +48,8 @@ function EditNote() {
       setCategory(data.note.category);
       setExcerpt(data.note.excerpt ?? "");
       setBody(data.note.body ?? "");
+      setExternalUrl((data.note as { external_url?: string | null }).external_url ?? "");
+      setSource((data.note as { source?: string | null }).source ?? "");
       setStatus(data.note.status);
     }
   }, [data]);
@@ -53,7 +57,17 @@ function EditNote() {
   const mutation = useMutation({
     mutationFn: () =>
       upsert({
-        data: { id, title, slug, category, excerpt, body, status },
+        data: {
+          id,
+          title,
+          slug,
+          category,
+          excerpt,
+          body,
+          external_url: externalUrl.trim() || undefined,
+          source: source.trim() || undefined,
+          status,
+        },
       }),
     onSuccess: () => {
       toast.success("Note saved");
@@ -99,6 +113,18 @@ function EditNote() {
         </Field>
         <Field label="Body (markdown)">
           <Textarea value={body} onChange={(e) => setBody(e.target.value)} rows={16} className="font-mono text-sm" />
+        </Field>
+        <Field label="External URL">
+          <Input
+            type="url"
+            value={externalUrl}
+            onChange={(e) => setExternalUrl(e.target.value)}
+            placeholder="https://www.linkedin.com/posts/..."
+            maxLength={2000}
+          />
+        </Field>
+        <Field label="Source">
+          <Input value={source} onChange={(e) => setSource(e.target.value)} maxLength={80} placeholder="LinkedIn" />
         </Field>
         <Field label="Status">
           <Select value={status} onValueChange={(v) => setStatus(v as "draft" | "published")}>

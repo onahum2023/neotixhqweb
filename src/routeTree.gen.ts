@@ -18,6 +18,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudioIndexRouteImport } from './routes/studio.index'
 import { Route as StudioNewRouteImport } from './routes/studio.new'
 import { Route as StudioInboxRouteImport } from './routes/studio.inbox'
+import { Route as FieldNotesSlugRouteImport } from './routes/field-notes.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as StudioIdEditRouteImport } from './routes/studio.$id.edit'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
@@ -70,6 +71,11 @@ const StudioInboxRoute = StudioInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => StudioRoute,
 } as any)
+const FieldNotesSlugRoute = FieldNotesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => FieldNotesRoute,
+} as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
@@ -106,12 +112,13 @@ const LovableEmailQueueProcessRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/field-notes': typeof FieldNotesRoute
+  '/field-notes': typeof FieldNotesRouteWithChildren
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/studio': typeof StudioRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/field-notes/$slug': typeof FieldNotesSlugRoute
   '/studio/inbox': typeof StudioInboxRoute
   '/studio/new': typeof StudioNewRoute
   '/studio/': typeof StudioIndexRoute
@@ -123,11 +130,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/field-notes': typeof FieldNotesRoute
+  '/field-notes': typeof FieldNotesRouteWithChildren
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/field-notes/$slug': typeof FieldNotesSlugRoute
   '/studio/inbox': typeof StudioInboxRoute
   '/studio/new': typeof StudioNewRoute
   '/studio': typeof StudioIndexRoute
@@ -140,12 +148,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/field-notes': typeof FieldNotesRoute
+  '/field-notes': typeof FieldNotesRouteWithChildren
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/studio': typeof StudioRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/field-notes/$slug': typeof FieldNotesSlugRoute
   '/studio/inbox': typeof StudioInboxRoute
   '/studio/new': typeof StudioNewRoute
   '/studio/': typeof StudioIndexRoute
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
     | '/studio'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/field-notes/$slug'
     | '/studio/inbox'
     | '/studio/new'
     | '/studio/'
@@ -181,6 +191,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/field-notes/$slug'
     | '/studio/inbox'
     | '/studio/new'
     | '/studio'
@@ -198,6 +209,7 @@ export interface FileRouteTypes {
     | '/studio'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/field-notes/$slug'
     | '/studio/inbox'
     | '/studio/new'
     | '/studio/'
@@ -210,7 +222,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  FieldNotesRoute: typeof FieldNotesRoute
+  FieldNotesRoute: typeof FieldNotesRouteWithChildren
   LoginRoute: typeof LoginRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StudioRoute: typeof StudioRouteWithChildren
@@ -287,6 +299,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioInboxRouteImport
       parentRoute: typeof StudioRoute
     }
+    '/field-notes/$slug': {
+      id: '/field-notes/$slug'
+      path: '/$slug'
+      fullPath: '/field-notes/$slug'
+      preLoaderRoute: typeof FieldNotesSlugRouteImport
+      parentRoute: typeof FieldNotesRoute
+    }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
       path: '/email/unsubscribe'
@@ -332,6 +351,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface FieldNotesRouteChildren {
+  FieldNotesSlugRoute: typeof FieldNotesSlugRoute
+}
+
+const FieldNotesRouteChildren: FieldNotesRouteChildren = {
+  FieldNotesSlugRoute: FieldNotesSlugRoute,
+}
+
+const FieldNotesRouteWithChildren = FieldNotesRoute._addFileChildren(
+  FieldNotesRouteChildren,
+)
+
 interface StudioRouteChildren {
   StudioInboxRoute: typeof StudioInboxRoute
   StudioNewRoute: typeof StudioNewRoute
@@ -351,7 +382,7 @@ const StudioRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  FieldNotesRoute: FieldNotesRoute,
+  FieldNotesRoute: FieldNotesRouteWithChildren,
   LoginRoute: LoginRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StudioRoute: StudioRouteWithChildren,

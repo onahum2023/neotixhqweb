@@ -17,6 +17,14 @@ const upsertSchema = z.object({
   excerpt: z.string().max(500).default(""),
   body: z.string().max(50_000).default(""),
   status: z.enum(["draft", "published"]),
+  external_url: z
+    .string()
+    .trim()
+    .max(2000)
+    .url()
+    .optional()
+    .or(z.literal("").transform(() => undefined)),
+  source: z.string().trim().max(80).optional().or(z.literal("").transform(() => undefined)),
 });
 
 async function assertAdmin(userId: string) {
@@ -34,7 +42,7 @@ async function assertAdmin(userId: string) {
 export const listPublishedFieldNotes = createServerFn({ method: "GET" }).handler(async () => {
   const { data, error } = await supabaseAdmin
     .from("field_notes")
-    .select("id, slug, title, category, excerpt, published_at")
+    .select("id, slug, title, category, excerpt, published_at, external_url, source")
     .eq("status", "published")
     .order("published_at", { ascending: false });
   if (error) throw new Error(error.message);
@@ -49,7 +57,7 @@ export const getPublishedFieldNote = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     const { data: note, error } = await supabaseAdmin
       .from("field_notes")
-      .select("id, slug, title, category, excerpt, body, published_at")
+      .select("id, slug, title, category, excerpt, body, published_at, external_url, source")
       .eq("status", "published")
       .eq("slug", data.slug)
       .maybeSingle();
@@ -64,7 +72,7 @@ export const listAllFieldNotes = createServerFn({ method: "GET" })
     await assertAdmin(context.userId);
     const { data, error } = await supabaseAdmin
       .from("field_notes")
-      .select("id, slug, title, category, status, updated_at, published_at")
+      .select("id, slug, title, category, status, updated_at, published_at, external_url, source")
       .order("updated_at", { ascending: false });
     if (error) throw new Error(error.message);
     return { notes: data ?? [] };
@@ -116,6 +124,8 @@ export const upsertFieldNote = createServerFn({ method: "POST" })
       excerpt: data.excerpt,
       body: data.body,
       status: data.status,
+      external_url: data.external_url ?? null,
+      source: data.source ?? null,
       author_id: context.userId,
       published_at: publishedAt,
     };
@@ -140,43 +150,6 @@ export const upsertFieldNote = createServerFn({ method: "POST" })
     return { note: inserted };
   });
 
-// Admin — set status (quick publish/unpublish)
-export const setFieldNoteStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string; status: "draft" | "published" }) =>
-    z
-      .object({
-        id: z.string().uuid(),
-        status: z.enum(["draft", "published"]),
-      })
-      .parse(input),
-  )
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context.userId);
-
-    let publishedAt: string | null = null;
-    if (data.status === "published") {
-      const { data: existing } = await supabaseAdmin
-        .from("field_notes")
-        .select("published_at, status")
-        .eq("id", data.id)
-        .maybeSingle();
-      publishedAt =
-        existing?.status === "published" && existing.published_at
-          ? existing.published_at
-          : new Date().toISOString();
-    }
-
-    const { data: updated, error } = await supabaseAdmin
-      .from("field_notes")
-      .update({ status: data.status, published_at: publishedAt })
-      .eq("id", data.id)
-      .select()
-      .single();
-    if (error) throw new Error(error.message);
-    return { note: updated };
-  });
-
 // Admin — delete
 export const deleteFieldNote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -185,9 +158,37 @@ export const deleteFieldNote = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
+    const { error } = await supabaseAdmin.from("field_notes").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+// Admin — set status
+export const setFieldNoteStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { id: string; status: "draft" | "published" }) =>
+    z
+      .object({ id: z.string().uuid(), status: z.enum(["draft", "published"]) })
+      .parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+    const patch: { status: "draft" | "published"; published_at?: string | null } = {
+      status: data.status,
+    };
+    if (data.status === "published") {
+      const { data: existing } = await supabaseAdmin
+        .from("field_notes")
+        .select("published_at")
+        .eq("id", data.id)
+        .maybeSingle();
+      patch.published_at = existing?.published_at ?? new Date().toISOString();
+    } else {
+      patch.published_at = null;
+    }
     const { error } = await supabaseAdmin
       .from("field_notes")
-      .delete()
+      .update(patch)
       .eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
