@@ -42,6 +42,8 @@ function NewNote() {
   const [category, setCategory] = useState("AI & Work");
   const [excerpt, setExcerpt] = useState("");
   const [body, setBody] = useState("");
+  const [externalUrl, setExternalUrl] = useState("");
+  const [source, setSource] = useState("");
   const [status, setStatus] = useState<"draft" | "published">("draft");
 
   const mutation = useMutation({
@@ -51,6 +53,8 @@ function NewNote() {
       category: string;
       excerpt: string;
       body: string;
+      external_url?: string;
+      source?: string;
       status: "draft" | "published";
     }) => upsert({ data: input }),
     onSuccess: () => {
@@ -70,6 +74,8 @@ function NewNote() {
       category,
       excerpt,
       body,
+      external_url: externalUrl.trim() || undefined,
+      source: source.trim() || undefined,
       status,
     });
   };
@@ -110,8 +116,20 @@ function NewNote() {
         <Field label="Excerpt" hint="Short summary shown on the home page.">
           <Textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} rows={3} maxLength={500} />
         </Field>
-        <Field label="Body (markdown)">
+        <Field label="Body (markdown)" hint="Leave empty if you're sharing an external link below.">
           <Textarea value={body} onChange={(e) => setBody(e.target.value)} rows={16} className="font-mono text-sm" />
+        </Field>
+        <Field label="External URL" hint="Optional — link to a post on LinkedIn, Substack, etc. When set, the listing links out directly.">
+          <Input
+            type="url"
+            value={externalUrl}
+            onChange={(e) => setExternalUrl(e.target.value)}
+            placeholder="https://www.linkedin.com/posts/..."
+            maxLength={2000}
+          />
+        </Field>
+        <Field label="Source" hint="Optional label shown on cards (e.g., LinkedIn, Substack).">
+          <Input value={source} onChange={(e) => setSource(e.target.value)} maxLength={80} placeholder="LinkedIn" />
         </Field>
         <Field label="Status">
           <Select value={status} onValueChange={(v) => setStatus(v as "draft" | "published")}>
