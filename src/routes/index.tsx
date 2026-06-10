@@ -5,7 +5,7 @@ import { Vision } from "@/components/neotix/Vision";
 import { Positioning } from "@/components/neotix/Positioning";
 import { WhatWeExplore } from "@/components/neotix/WhatWeExplore";
 import { HowWeEngage } from "@/components/neotix/HowWeEngage";
-import { FieldNotes } from "@/components/neotix/FieldNotes";
+
 import { Philosophy } from "@/components/neotix/Philosophy";
 import { ClosingCTA } from "@/components/neotix/ClosingCTA";
 import { Footer } from "@/components/neotix/Footer";
@@ -45,8 +45,6 @@ function Index() {
       <WhatWeExplore />
       <BeamDivider />
       <HowWeEngage />
-      <BeamDivider />
-      <FieldNotes />
       <BeamDivider />
       <Philosophy />
       <ClosingCTA />
