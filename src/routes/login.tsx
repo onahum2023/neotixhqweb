@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +11,7 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Sign in — NeotixHQ" },
-      { name: "robots", content: "noindex" },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: LoginPage,
@@ -21,7 +20,6 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,36 +32,12 @@ function LoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: window.location.origin + "/studio" },
-        });
-        if (error) throw error;
-        toast.success("Check your email to confirm your account.");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        navigate({ to: "/studio" });
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      navigate({ to: "/studio" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Authentication failed");
     } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogle = async () => {
-    setLoading(true);
-    try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin + "/studio",
-      });
-      if (result.error) throw result.error;
-      if (!result.redirected) navigate({ to: "/studio" });
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Google sign-in failed");
       setLoading(false);
     }
   };
@@ -76,27 +50,11 @@ function LoginPage() {
             ← NeotixHQ
           </Link>
           <h1 className="mt-4 text-2xl font-semibold tracking-tight">
-            {mode === "signin" ? "Sign in to Studio" : "Create an account"}
+            Admin sign in
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Studio access is reserved for NeotixHQ admins.
+            Studio access is reserved for NeotixHQ admins. Public sign-ups are disabled.
           </p>
-        </div>
-
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full"
-          onClick={handleGoogle}
-          disabled={loading}
-        >
-          Continue with Google
-        </Button>
-
-        <div className="my-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          <div className="h-px flex-1 bg-border" />
-          or
-          <div className="h-px flex-1 bg-border" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -117,7 +75,7 @@ function LoginPage() {
             <Input
               id="password"
               type="password"
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
+              autoComplete="current-password"
               required
               minLength={8}
               value={password}
@@ -126,17 +84,9 @@ function LoginPage() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {mode === "signin" ? "Sign in" : "Create account"}
+            Sign in
           </Button>
         </form>
-
-        <button
-          type="button"
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-6 text-xs text-muted-foreground hover:text-foreground"
-        >
-          {mode === "signin" ? "Need an account? Sign up" : "Have an account? Sign in"}
-        </button>
       </div>
     </main>
   );
