@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAdminChecked(true);
     };
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {
       setSession(newSession);
       setUser(newSession?.user ?? null);
       if (!newSession) {
@@ -45,6 +45,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAdminChecked(true);
       } else {
         setTimeout(() => { checkAdmin(newSession.user.id); }, 0);
+      }
+      if (event === "PASSWORD_RECOVERY") {
+        navigate({ to: "/reset-password" });
       }
       router.invalidate();
       queryClient.invalidateQueries();
