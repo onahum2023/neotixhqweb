@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 
 interface AuthState {
@@ -23,6 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [adminChecked, setAdminChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAdminChecked(true);
     };
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {
       setSession(newSession);
       setUser(newSession?.user ?? null);
       if (!newSession) {
@@ -45,6 +46,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAdminChecked(true);
       } else {
         setTimeout(() => { checkAdmin(newSession.user.id); }, 0);
+      }
+      if (event === "PASSWORD_RECOVERY") {
+        navigate({ to: "/reset-password" });
       }
       router.invalidate();
       queryClient.invalidateQueries();
@@ -62,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     return () => subscription.unsubscribe();
-  }, [router, queryClient]);
+  }, [router, navigate, queryClient]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
