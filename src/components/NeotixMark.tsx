@@ -32,11 +32,35 @@ export function NeotixMark({ size = 28, className, glow = false }: Props) {
 
       {/* Implied verticals of the N — hairline only */}
       <line x1="9" y1="9" x2="9" y2="31" stroke="#F4F1EA" strokeOpacity="0.22" strokeWidth="0.8" />
-      <line x1="31" y1="9" x2="31" y2="31" stroke="#F4F1EA" strokeOpacity="0.22" strokeWidth="0.8" />
+      <line
+        x1="31"
+        y1="9"
+        x2="31"
+        y2="31"
+        stroke="#F4F1EA"
+        strokeOpacity="0.22"
+        strokeWidth="0.8"
+      />
 
       {/* Converging hairlines — fragmented signals folding into the diagonal */}
-      <line x1="9" y1="31" x2="20" y2="20" stroke="#8B5CF6" strokeOpacity="0.35" strokeWidth="0.6" />
-      <line x1="31" y1="9" x2="20" y2="20" stroke="#22D3EE" strokeOpacity="0.35" strokeWidth="0.6" />
+      <line
+        x1="9"
+        y1="31"
+        x2="20"
+        y2="20"
+        stroke="#8B5CF6"
+        strokeOpacity="0.35"
+        strokeWidth="0.6"
+      />
+      <line
+        x1="31"
+        y1="9"
+        x2="20"
+        y2="20"
+        stroke="#22D3EE"
+        strokeOpacity="0.35"
+        strokeWidth="0.6"
+      />
 
       {/* Dominant diagonal signal beam — the N's diagonal */}
       <line

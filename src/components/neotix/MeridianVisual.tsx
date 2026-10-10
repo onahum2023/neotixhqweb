@@ -1,6 +1,14 @@
 export function MeridianVisual() {
   return (
-    <svg viewBox="0 0 64 64" className="w-full h-full" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 64 64"
+      className="w-full h-full"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       {/* rounded frame */}
       <rect x="6" y="6" width="52" height="52" rx="9" />
       {/* horizontal strokes */}

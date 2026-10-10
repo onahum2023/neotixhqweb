@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { NeotixMark } from "../NeotixMark";
 import { CoreMotif } from "./CoreMotif";
 
@@ -20,7 +19,14 @@ function GitHubIcon() {
 
 function MailIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+    <svg
+      viewBox="0 0 24 24"
+      className="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden
+    >
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m3 7 9 6 9-6" />
     </svg>
@@ -68,45 +74,99 @@ export function Footer() {
             An AI-native studio for the cognitive layer of work.
           </p>
           <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-sm">
-            NeotixHQ is a cognitive systems studio exploring the layer between
-            information and judgment — through research, advisory, and prototypes.
+            We explore practical applications of AI and emerging technologies, develop ideas, and
+            turn selected concepts into working products.
           </p>
           <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-sm">
             NeotixHQ is a brand operated by{" "}
-            <a href="https://nucielo.io/" className="hover:text-foreground transition-colors">NuCielo ICT B.V.</a>.
+            <a href="https://www.nucielo.io/" className="hover:text-foreground transition-colors">
+              NuCielo ICT B.V.
+            </a>
+            .
           </p>
           <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-sm">
-            <a href="https://meridian.neotixhq.com/" className="hover:text-foreground transition-colors">Meridian</a>{" "}
-            is a local-first AI History Explorer by NeotixHQ for importing, analyzing,
-            searching, reading, and exporting ChatGPT, Claude, and Gemini conversation history.
+            <a
+              href="https://meridian.neotixhq.com/"
+              className="hover:text-foreground transition-colors"
+            >
+              Meridian
+            </a>{" "}
+            is a local-first AI History Explorer by NeotixHQ for importing, analyzing, searching,
+            reading, and exporting ChatGPT, Claude, and Gemini conversation history.
           </p>
         </div>
 
         <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10">
           <Column label="Explore">
-            <li><Link to="/" hash="vision" className="hover:text-foreground transition-colors">Vision</Link></li>
-            <li><Link to="/" hash="principles" className="hover:text-foreground transition-colors">Principles</Link></li>
-            <li><Link to="/" hash="explore" className="hover:text-foreground transition-colors">What We Explore</Link></li>
-            <li><Link to="/" hash="engage" className="hover:text-foreground transition-colors">How We Engage</Link></li>
+            <li>
+              <a href="/#vision" className="hover:text-foreground transition-colors">
+                Vision
+              </a>
+            </li>
+            <li>
+              <a href="/#principles" className="hover:text-foreground transition-colors">
+                Principles
+              </a>
+            </li>
+            <li>
+              <a href="/#explore" className="hover:text-foreground transition-colors">
+                What We Explore
+              </a>
+            </li>
+            <li>
+              <a href="/#engage" className="hover:text-foreground transition-colors">
+                How We Engage
+              </a>
+            </li>
           </Column>
           <Column label="Studio">
-            <li><Link to="/" hash="company" className="hover:text-foreground transition-colors">Company</Link></li>
-            <li><Link to="/field-notes" className="hover:text-foreground transition-colors">Field Notes</Link></li>
-            <li><Link to="/" hash="contact" className="hover:text-foreground transition-colors">Contact</Link></li>
+            <li>
+              <a href="/#products" className="hover:text-foreground transition-colors">
+                Meridian
+              </a>
+            </li>
+            <li>
+              <a href="/#company" className="hover:text-foreground transition-colors">
+                Company
+              </a>
+            </li>
+            <li>
+              <a href="/field-notes" className="hover:text-foreground transition-colors">
+                Field Notes
+              </a>
+            </li>
+            <li>
+              <a href="/#contact" className="hover:text-foreground transition-colors">
+                Contact
+              </a>
+            </li>
           </Column>
           <Column label="Connect">
             <li>
-              <a href="https://www.linkedin.com/company/neotixhq" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2.5 hover:text-foreground transition-colors">
+              <a
+                href="https://www.linkedin.com/company/neotixhq"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 hover:text-foreground transition-colors"
+              >
                 <LinkedInIcon /> LinkedIn
               </a>
             </li>
             <li>
-              <a href="https://github.com/neotixhq" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2.5 hover:text-foreground transition-colors">
+              <a
+                href="https://github.com/neotixhq"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 hover:text-foreground transition-colors"
+              >
                 <GitHubIcon /> GitHub
               </a>
             </li>
             <li>
-              <a href="mailto:hello@neotixhq.com" className="inline-flex items-center gap-2.5 hover:text-foreground transition-colors">
+              <a
+                href="mailto:hello@neotixhq.com"
+                className="inline-flex items-center gap-2.5 hover:text-foreground transition-colors"
+              >
                 <MailIcon /> Email
               </a>
             </li>

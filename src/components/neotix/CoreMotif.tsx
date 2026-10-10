@@ -27,7 +27,15 @@ export function CoreMotif({ className, opacity = 0.06, rotate = 0 }: Props) {
       </defs>
       {/* implied verticals */}
       <line x1="60" y1="60" x2="60" y2="340" stroke="#F4F1EA" strokeOpacity="0.5" strokeWidth="1" />
-      <line x1="340" y1="60" x2="340" y2="340" stroke="#F4F1EA" strokeOpacity="0.5" strokeWidth="1" />
+      <line
+        x1="340"
+        y1="60"
+        x2="340"
+        y2="340"
+        stroke="#F4F1EA"
+        strokeOpacity="0.5"
+        strokeWidth="1"
+      />
       {/* diagonal beam */}
       <line
         x1="60"

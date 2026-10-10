@@ -28,7 +28,15 @@ function Mark({ i }: { i: number }) {
         <>
           <path d="M8 28 L20 10 L32 28" stroke={`url(#eg-${i})`} strokeWidth="1.5" />
           <circle cx="20" cy="10" r="2.5" fill={`url(#eg-${i})`} />
-          <line x1="8" y1="28" x2="32" y2="28" stroke="#22D3EE" strokeOpacity="0.5" strokeWidth="1" />
+          <line
+            x1="8"
+            y1="28"
+            x2="32"
+            y2="28"
+            stroke="#22D3EE"
+            strokeOpacity="0.5"
+            strokeWidth="1"
+          />
         </>
       )}
       {i === 1 && (
@@ -41,7 +49,12 @@ function Mark({ i }: { i: number }) {
       )}
       {i === 2 && (
         <>
-          <path d="M10 30 L10 14 L20 8 L30 14 L30 30 Z" stroke={`url(#eg-${i})`} strokeWidth="1.5" strokeLinejoin="round" />
+          <path
+            d="M10 30 L10 14 L20 8 L30 14 L30 30 Z"
+            stroke={`url(#eg-${i})`}
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
           <line x1="20" y1="8" x2="20" y2="30" stroke="#22D3EE" strokeOpacity="0.5" />
           <circle cx="20" cy="20" r="2.5" fill={`url(#eg-${i})`} />
         </>
@@ -72,8 +85,18 @@ export function HowWeEngage() {
             How We Engage
           </p>
           <h2 className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-balance">
-            Three ways we work alongside teams and ideas.
+            From ideas to practical applications.
           </h2>
+          <p className="mt-5 text-base text-muted-foreground leading-relaxed">
+            We explore, design, and build at the intersection of AI, technology, and business. Some
+            of that work becomes products, like Meridian. Other work takes shape through
+            collaborations with organizations navigating new technologies, exploring opportunities,
+            or turning ambitious ideas into practical solutions.
+          </p>
+          <p className="mt-5 text-base text-muted-foreground leading-relaxed">
+            Our experience spans AI strategy, solution architecture, cloud and data platforms, and
+            the challenges of bringing emerging technology into real-world environments.
+          </p>
         </div>
 
         <div className="mt-12 grid md:grid-cols-3 gap-6">

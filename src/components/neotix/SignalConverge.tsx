@@ -17,9 +17,7 @@ function hexPoints(cx: number, cy: number, r: number) {
 function hexPath(cx: number, cy: number, r: number) {
   const pts = hexPoints(cx, cy, r);
   return (
-    pts
-      .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`)
-      .join(" ") + " Z"
+    pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ") + " Z"
   );
 }
 
@@ -106,8 +104,7 @@ export function SignalConverge() {
     };
   });
 
-  const colorFor = (hue: number) =>
-    hue === 0 ? "#8B5CF6" : hue === 1 ? "#22D3EE" : "#F4F1EA";
+  const colorFor = (hue: number) => (hue === 0 ? "#8B5CF6" : hue === 1 ? "#22D3EE" : "#F4F1EA");
 
   const outerHex = hexPath(cx, cy, 130);
   const midHex = hexPath(cx, cy, 100);
@@ -194,9 +191,7 @@ export function SignalConverge() {
                   transformOrigin: `${p.x}px ${p.y}px`,
                 }}
               >
-                {p.kind === 0 && (
-                  <circle cx={p.x} cy={p.y} r={p.size} fill={c} fillOpacity="0.9" />
-                )}
+                {p.kind === 0 && <circle cx={p.x} cy={p.y} r={p.size} fill={c} fillOpacity="0.9" />}
                 {p.kind === 1 && (
                   <circle
                     cx={p.x}
@@ -274,7 +269,14 @@ export function SignalConverge() {
           ))}
 
           {/* Bright center */}
-          <circle cx={cx} cy={cy} r="80" fill="url(#core-glow)" className="animate-pulse-glow" style={{ transformOrigin: `${cx}px ${cy}px` }} />
+          <circle
+            cx={cx}
+            cy={cy}
+            r="80"
+            fill="url(#core-glow)"
+            className="animate-pulse-glow"
+            style={{ transformOrigin: `${cx}px ${cy}px` }}
+          />
           <circle cx={cx} cy={cy} r="4" fill="#F4F1EA" />
           <circle cx={cx} cy={cy} r="10" stroke="#F4F1EA" strokeOpacity="0.55" />
         </g>
