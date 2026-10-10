@@ -2,19 +2,15 @@ import { renderToString, renderToStaticMarkup } from "react-dom/server";
 import { App } from "./App";
 import { identityGraph } from "./identity";
 
-export const publicPaths = ["/", "/field-notes"];
+export const publicPaths = ["/"];
 
 export function renderPage(path: string) {
   const isHome = path === "/";
   const isNotFound = !publicPaths.includes(path);
   const title = isNotFound
     ? "Page not found — NeotixHQ"
-    : isHome
-      ? "NeotixHQ — AI exploration, products, and practical applications"
-      : "Field Notes — NeotixHQ";
-  const description = isHome
-    ? "NeotixHQ is an AI-focused studio and a brand operated by NuCielo ICT B.V. We explore, design, and build practical AI applications, including Meridian — AI History Explorer."
-    : "Essays, short notes, and links on AI, memory, workflows, and the cognitive layer of work from NeotixHQ, a brand operated by NuCielo ICT B.V.";
+    : "NeotixHQ — AI exploration, products, and practical applications";
+  const description = "NeotixHQ is an AI-focused studio and a brand operated by NuCielo ICT B.V. We explore, design, and build practical AI applications, including Meridian — AI History Explorer.";
   const url = `https://neotixhq.com${isHome ? "/" : path}`;
   const head = renderToStaticMarkup(
     <>
