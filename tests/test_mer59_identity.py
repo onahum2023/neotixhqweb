@@ -141,7 +141,7 @@ class StaticPagesTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.pages = {}
-        for path in ("/", "/field-notes"):
+        for path in ("/",):
             status, html, _ = get(path)
             parser = PageParser()
             parser.feed(html)
@@ -155,7 +155,6 @@ class StaticPagesTest(unittest.TestCase):
                 self.assertNotIn("<!--app-->", html)
                 self.assertIn("NuCielo ICT B.V.", html)
                 self.assertIn("AI History Explorer", html)
-        self.assertIn("No notes published yet", self.pages["/field-notes"][1])
         self.assertIn("From ideas to practical applications", self.pages["/"][1])
 
     def test_unique_metadata_and_canonical(self):
@@ -193,7 +192,7 @@ class StaticPagesTest(unittest.TestCase):
             self.assertEqual(response.read(8), b"\x89PNG\r\n\x1a\n")
 
     def test_unknown_and_retired_routes_are_404(self):
-        for path in ("/not-a-page", "/field-notes/missing", "/login", "/studio", "/reset-password", "/unsubscribe", "/email/unsubscribe", "/lovable/email/queue/process"):
+        for path in ("/not-a-page", "/field-notes", "/field-notes/missing", "/login", "/studio", "/reset-password", "/unsubscribe", "/email/unsubscribe", "/lovable/email/queue/process"):
             with self.subTest(path=path):
                 status, html, _ = get(path)
                 self.assertEqual(status, 404)
@@ -209,7 +208,7 @@ class StaticPagesTest(unittest.TestCase):
         self.assertEqual(status, 200)
         root = ET.fromstring(sitemap)
         locations = {e.text for e in root.iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")}
-        self.assertEqual(locations, {"https://neotixhq.com/", "https://neotixhq.com/field-notes"})
+        self.assertEqual(locations, {"https://neotixhq.com/"})
         for file in ("/robots.txt", "/llms.txt"):
             status, body, _ = get(file)
             self.assertEqual(status, 200)
