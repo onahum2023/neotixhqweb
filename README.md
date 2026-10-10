@@ -36,10 +36,6 @@ complete HTML documents and a sitemap, then removes the render bundle. Only
 `dist` is deployed. There are no runtime server functions or data APIs.
 
 - `src/pages/Home.tsx`: homepage composition.
-- `src/pages/FieldNotes.tsx`: static journal index. The public journal was empty
-  when reviewed for migration; no published articles needed migration. Add future
-  editorial content as reviewed source changes, with a page, route, metadata, and
-  tests. Draft/admin data is not part of the website.
 - `src/identity.ts` and `src/prerender.tsx`: operator/brand/product graph and
   route metadata. The operator's canonical URL is `https://nucielo.io/`; visible
   links use its public `www` URL, which redirects there.
@@ -67,7 +63,7 @@ Import `onahum2023/neotixhqweb` into the intended Vercel team. Use the Vite pres
 can provide subsequent PR previews; keep production release separate from Preview
 acceptance. Do not connect the production domains during implementation.
 
-`cleanUrls` serves `/field-notes` from `field-notes.html`. There is deliberately no
+There is deliberately no
 SPA catch-all rewrite: unknown and retired routes return a real HTTP 404 using
 `404.html`. Canonicals and sitemap entries describe the eventual public domain.
 Vercel's deployment protection/Preview indexing policy can differ from production.
@@ -75,8 +71,7 @@ Vercel's deployment protection/Preview indexing policy can differ from productio
 ## Domain cutover and rollback (separate approval required)
 
 1. Accept an exact-commit Preview after desktop/mobile, initial HTML, links,
-   metadata, and network checks. Recheck the published journal for any new posts
-   immediately before cutover; migrate them before release if any appear.
+   metadata, and network checks.
 2. Record the existing authoritative DNS provider, apex and `www` records and
    TTLs, Lovable domain settings, and current working responses. Preserve email
    MX/TXT, verification records, and the Meridian subdomains.
@@ -86,7 +81,7 @@ Vercel's deployment protection/Preview indexing policy can differ from productio
    targets Vercel supplies for this project at cutover time; do not substitute a
    remembered IP or change nameservers merely to move this site.
 4. Change only the approved apex/`www` records. Verify TLS, redirects, homepage,
-   Field Notes, 404s, sitemap, robots, canonicals, and external links from fresh
+   404s, sitemap, robots, canonicals, and external links from fresh
    sessions. Allow for the recorded TTL and resolver caches.
 5. Keep Lovable hosting and its domain association available during the rollback
    window. If validation fails, restore the recorded DNS records/TTLs and verify
