@@ -71,6 +71,15 @@ export function Footer() {
             NeotixHQ is a cognitive systems studio exploring the layer between
             information and judgment — through research, advisory, and prototypes.
           </p>
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-sm">
+            NeotixHQ is a brand operated by{" "}
+            <a href="https://nucielo.io/" className="hover:text-foreground transition-colors">NuCielo ICT B.V.</a>.
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-sm">
+            <a href="https://meridian.neotixhq.com/" className="hover:text-foreground transition-colors">Meridian</a>{" "}
+            is a local-first AI History Explorer by NeotixHQ for importing, analyzing,
+            searching, reading, and exporting ChatGPT, Claude, and Gemini conversation history.
+          </p>
         </div>
 
         <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10">

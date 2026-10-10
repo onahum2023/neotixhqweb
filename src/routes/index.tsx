@@ -18,17 +18,25 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "NeotixHQ is an AI-native studio exploring context engineering, AI memory, human-AI collaboration, decision intelligence, and workflow intelligence.",
+          "NeotixHQ is an AI-native studio and a brand operated by NuCielo ICT B.V. Meridian is its local-first AI History Explorer for ChatGPT, Claude, and Gemini conversation history.",
       },
       { property: "og:title", content: "NeotixHQ — An AI-native studio for the cognitive layer of work" },
       {
         property: "og:description",
         content:
-          "An AI-native studio exploring context, memory, and judgment at the intersection of research, advisory, and product.",
+          "NeotixHQ is an AI-native studio and a brand operated by NuCielo ICT B.V. Meridian is its local-first AI History Explorer for ChatGPT, Claude, and Gemini conversation history.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://neotixhq.com/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "NeotixHQ — An AI-native studio for the cognitive layer of work" },
+      {
+        name: "twitter:description",
+        content:
+          "NeotixHQ is an AI-native studio and a brand operated by NuCielo ICT B.V. Meridian is its local-first AI History Explorer for ChatGPT, Claude, and Gemini conversation history.",
+      },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://neotixhq.com/" }],
   }),
   component: Index,
 });
