@@ -27,9 +27,6 @@ export function Nav() {
           <a href="/#products" className="hover:text-foreground transition-colors">
             Meridian
           </a>
-          <a href="/field-notes" className="hover:text-foreground transition-colors">
-            Field Notes
-          </a>
           <a href="/#company" className="hover:text-foreground transition-colors">
             Company
           </a>
@@ -45,8 +42,7 @@ export function Nav() {
             <a href="/#explore">Explorations</a>
             <a href="/#products">Meridian</a>
             <a href="/#engage">Engage</a>
-            <a href="/field-notes">Field Notes</a>
-            <a href="/#company">Company</a>
+              <a href="/#company">Company</a>
             <a href="/#contact">Contact</a>
           </nav>
         </details>
