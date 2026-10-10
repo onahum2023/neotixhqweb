@@ -43,13 +43,7 @@ function StepGlyph({ kind }: { kind: (typeof steps)[number]["glyph"] }) {
             const x = 24 + r * Math.cos(angle);
             const y = 24 + r * Math.sin(angle);
             return (
-              <circle
-                key={i}
-                cx={x}
-                cy={y}
-                r={1.6}
-                fillOpacity={0.5 + ((i * 13) % 50) / 100}
-              />
+              <circle key={i} cx={x} cy={y} r={1.6} fillOpacity={0.5 + ((i * 13) % 50) / 100} />
             );
           })}
         </g>
@@ -95,15 +89,13 @@ export function Mission() {
   return (
     <div id="mission" className="relative">
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-
         {/* Headline */}
         <div className="text-center max-w-4xl mx-auto">
           <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-muted-foreground">
             Our mission is simple
           </p>
           <h2 className="mt-6 text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.2] text-balance text-foreground/85">
-            Transform{" "}
-            <span style={{ color: "#C4B5FD" }}>information</span> into{" "}
+            Transform <span style={{ color: "#C4B5FD" }}>information</span> into{" "}
             <span style={{ color: "#67E8F9" }}>context</span>. Context into{" "}
             <span style={{ color: "#A5B4FC" }}>insight</span>. Insight into{" "}
             <span style={{ color: "#67E8F9" }}>action</span>.
@@ -121,7 +113,10 @@ export function Mission() {
             }}
           />
           {/* Waypoint dots aligned to step centers */}
-          <div className="absolute left-0 right-0 -top-1 hidden md:grid grid-cols-4" aria-hidden="true">
+          <div
+            className="absolute left-0 right-0 -top-1 hidden md:grid grid-cols-4"
+            aria-hidden="true"
+          >
             {steps.map((s, i) => (
               <div key={s.title} className="flex justify-center">
                 <span
@@ -147,9 +142,7 @@ export function Mission() {
                   <h3 className="text-base font-semibold tracking-tight text-foreground">
                     {s.title}
                   </h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    {s.body}
-                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
                 </div>
               </div>
             ))}

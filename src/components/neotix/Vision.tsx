@@ -25,12 +25,12 @@ export function Vision() {
         </div>
         <div className="lg:col-span-5 lg:pt-20 space-y-6 text-lg text-muted-foreground leading-relaxed">
           <p>
-            Most tools help people create, capture, and search more information. That is no
-            longer the hard part.
+            Most tools help people create, capture, and search more information. That is no longer
+            the hard part.
           </p>
           <p>
-            The harder problem is turning scattered conversations, decisions, workflows, and
-            signals into useful context that people can trust, revisit, and act on.
+            The harder problem is turning scattered conversations, decisions, workflows, and signals
+            into useful context that people can trust, revisit, and act on.
           </p>
           <p className="text-foreground">
             NeotixHQ exists to build the layer between information and judgment.

@@ -1,17 +1,13 @@
 # NeotixHQ
 
-> An AI-native studio building cognitive systems that turn fragmented information, conversations, and workflows into structured context and better decisions.
+> An AI-focused studio exploring practical applications of AI and emerging technologies, and turning selected ideas into working products.
 
-NeotixHQ is a brand operated by [NuCielo ICT B.V.](https://nucielo.io/). The site outlines the studio's thesis on the cognitive layer of work: Information is abundant. Context is scarce.
+NeotixHQ is a brand operated by [NuCielo ICT B.V.](https://www.nucielo.io/), a Netherlands-registered company.
 
-[Meridian](https://meridian.neotixhq.com/) is a local-first AI History Explorer by NeotixHQ for importing, analyzing, searching, reading, and exporting ChatGPT, Claude, and Gemini conversation history.
+[Meridian — AI History Explorer](https://meridian.neotixhq.com/) is a NeotixHQ product for exploring, searching, reading, analyzing, and exporting AI conversation history. Processing happens locally in the browser by default.
+
+Our experience also spans AI strategy, solution architecture, cloud and data platforms, and collaboration with organizations applying emerging technology.
 
 ## Pages
 
-- [Home](https://neotixhq.com/): NeotixHQ vision, principles, studio explorations, and contact.
-- [Field Notes](https://neotixhq.com/field-notes): Studio articles and shared posts.
-
-## Related sites
-
-- [NuCielo ICT B.V.](https://nucielo.io/): Operator of the NeotixHQ brand.
-- [Meridian — AI History Explorer](https://meridian.neotixhq.com/): Local-first conversation history exploration by NeotixHQ.
+- [Home](https://neotixhq.com/): Studio vision, exploration, Meridian, collaboration, identity, and contact.

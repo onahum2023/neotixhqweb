@@ -3,10 +3,7 @@
  */
 export function BeamDivider() {
   return (
-    <div
-      aria-hidden="true"
-      className="relative h-10 overflow-hidden"
-    >
+    <div aria-hidden="true" className="relative h-10 overflow-hidden">
       <div
         className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px"
         style={{

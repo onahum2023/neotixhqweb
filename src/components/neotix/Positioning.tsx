@@ -49,12 +49,23 @@ function Glyph({ i }: { i: number }) {
           <circle cx="22" cy="18" r="2.5" fill={`url(#pg-${i})`} />
           <circle cx="14" cy="28" r="2.5" fill={`url(#pg-${i})`} />
           <circle cx="30" cy="30" r="2.5" fill={`url(#pg-${i})`} />
-          <path d="M10 10 L22 18 L14 28 L30 30" stroke={`url(#pg-${i})`} strokeWidth="1" strokeOpacity="0.6" fill="none" />
+          <path
+            d="M10 10 L22 18 L14 28 L30 30"
+            stroke={`url(#pg-${i})`}
+            strokeWidth="1"
+            strokeOpacity="0.6"
+            fill="none"
+          />
         </>
       )}
       {i === 3 && (
         <>
-          <path d="M8 26 L18 16 L24 22 L34 10" stroke={`url(#pg-${i})`} strokeWidth="1.5" fill="none" />
+          <path
+            d="M8 26 L18 16 L24 22 L34 10"
+            stroke={`url(#pg-${i})`}
+            strokeWidth="1.5"
+            fill="none"
+          />
           <circle cx="34" cy="10" r="3" fill={`url(#pg-${i})`} />
         </>
       )}
@@ -98,7 +109,15 @@ export function Positioning() {
                 className="absolute -right-2 -top-2 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                 aria-hidden
               >
-                <line x1="12" y1="12" x2="48" y2="48" stroke="#22D3EE" strokeOpacity="0.35" strokeWidth="1" />
+                <line
+                  x1="12"
+                  y1="12"
+                  x2="48"
+                  y2="48"
+                  stroke="#22D3EE"
+                  strokeOpacity="0.35"
+                  strokeWidth="1"
+                />
                 <circle cx="12" cy="12" r="2" fill="#8B5CF6" />
                 <circle cx="48" cy="48" r="2" fill="#22D3EE" />
               </svg>

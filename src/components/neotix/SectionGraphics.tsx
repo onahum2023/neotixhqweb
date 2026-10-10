@@ -55,9 +55,7 @@ export function SectionGraphics({ diagonal = "tl-br", gridOpacity = 0.35 }: Prop
         }}
       />
       {/* mid waypoint dot */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none size-1 rounded-full bg-foreground/40"
-      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none size-1 rounded-full bg-foreground/40" />
     </>
   );
 }

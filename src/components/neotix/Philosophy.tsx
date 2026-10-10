@@ -21,13 +21,27 @@ export function Philosophy() {
         </div>
         <div className="lg:col-span-6 lg:pt-20 space-y-6 text-lg text-muted-foreground leading-relaxed">
           <p>
-            NeotixHQ sits at the intersection of AI, product engineering, workflow intelligence,
-            and human-centered systems design.
+            NeotixHQ is a brand operated by{" "}
+            <a
+              href="https://www.nucielo.io/"
+              className="text-foreground underline underline-offset-4 hover:text-accent"
+            >
+              NuCielo ICT B.V.
+            </a>
+            , a Netherlands-registered company.
           </p>
           <p>
-            We are focused on a simple pattern: people do not need more information. They need
-            systems that help them
-            <span className="text-foreground"> recognize what matters, preserve what matters, and act when it matters.</span>
+            We explore, design, and build at the intersection of AI, technology, and business. Our
+            work spans research, product creation, and collaboration in real-world environments.
+          </p>
+          <p>
+            <a
+              href="https://meridian.neotixhq.com/"
+              className="text-foreground underline underline-offset-4 hover:text-accent"
+            >
+              Meridian
+            </a>{" "}
+            is our active product: a local-first AI History Explorer by NeotixHQ.
           </p>
         </div>
       </div>

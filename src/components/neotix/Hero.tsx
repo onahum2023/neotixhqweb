@@ -2,7 +2,6 @@ import { SignalConverge } from "./SignalConverge";
 import { CoreMotif } from "./CoreMotif";
 import { Mission } from "./Mission";
 
-
 export function Hero() {
   return (
     <section id="top" className="relative pt-28 pb-8 lg:pt-36 lg:pb-10 overflow-hidden">
@@ -25,8 +24,8 @@ export function Hero() {
             Building the cognitive layer of work.
           </h1>
           <p className="mt-7 text-lg text-muted-foreground max-w-xl leading-relaxed">
-            NeotixHQ is an AI-native studio exploring how fragmented conversations,
-            workflows, and signals can become structured context for better judgment.
+            NeotixHQ is an AI-focused studio exploring practical applications of AI and emerging
+            technologies — turning selected ideas into working products.
           </p>
         </div>
 
@@ -42,4 +41,3 @@ export function Hero() {
     </section>
   );
 }
-

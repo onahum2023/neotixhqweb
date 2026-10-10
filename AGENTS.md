@@ -1,4 +1,7 @@
 # Project rules
 
-- Keep the site identity graph in the existing TanStack root head and homepage metadata in the homepage head; this preserves initial-HTML rendering and avoids duplicate metadata mechanisms.
-- Validate identity graph relationships with standard-library Python tests against local initial HTTP HTML; this checks crawler-visible output without introducing dependencies or accessing application data.
+- Preserve the existing dark violet/cyan visual identity and local static architecture.
+- Keep metadata and the identity graph in the build-time prerenderer so every public route has meaningful initial HTML, one canonical, and one metadata mechanism.
+- NeotixHQ is a brand operated by NuCielo ICT B.V.; do not imply a separate legal entity or publish unverified registration details.
+- Validate crawler-visible output using standard-library Python tests. Run `npm test`, `npm run lint`, and `npm run build`.
+- Preview deployment is allowed for migration review. Production release and DNS changes need separate approval.

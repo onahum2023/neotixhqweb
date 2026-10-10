@@ -1,6 +1,4 @@
 import { MeridianVisual } from "./MeridianVisual";
-import { AugmentVisual } from "./AugmentVisual";
-import { OrinVisual } from "./OrinVisual";
 import type { ReactNode } from "react";
 
 type SystemProps = {
@@ -49,7 +47,7 @@ function SystemCard({ name, label, tagline, description, status, visual }: Syste
 export function Products() {
   return (
     <section
-      id="studio"
+      id="products"
       className="relative py-14 lg:py-20 overflow-hidden"
       style={{ backgroundColor: "var(--color-surface-deep)" }}
     >
@@ -64,42 +62,33 @@ export function Products() {
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            Studio
+            Products
           </p>
           <h2 className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-balance">
-            Early systems from NeotixHQ.
+            An idea in use: Meridian.
           </h2>
           <p className="mt-5 text-base text-muted-foreground leading-relaxed">
-            Our early systems explore how AI can preserve context, improve judgment, and become
-            more useful over time without sacrificing transparency, control, or trust.
+            Meridian is a local-first AI History Explorer by NeotixHQ. Explore, search, read,
+            analyze, and export your AI conversation history, with processing in your browser by
+            default.
           </p>
         </div>
 
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-12 max-w-2xl">
           <SystemCard
             label="Meridian by NeotixHQ"
             name="Meridian"
-            tagline="Exploring temporal memory for modern work."
-            status="In development"
-            description="Meridian explores how conversations can become structured memory, helping important patterns, decisions, and ideas resurface when they matter."
+            tagline="AI History Explorer"
+            status="Available"
+            description="Bring your AI conversation history into one place and revisit it with local-first search, reading, analytics, and export."
             visual={<MeridianVisual />}
           />
-          <SystemCard
-            label="Calix by NeotixHQ"
-            name="Calix"
-            tagline="Exploring calibrated hiring decisions."
-            status="MVP"
-            description="Calix explores how AI can help hiring managers turn job requirements, candidate signals, and interview preparation into a clearer, more structured decision workflow."
-            visual={<AugmentVisual />}
-          />
-          <SystemCard
-            label="Orin by NeotixHQ"
-            name="Orin"
-            tagline="Exploring controlled personal AI collaboration."
-            status="Roadmap"
-            description="Orin explores how a personal AI layer can learn how to work with you over time while remaining transparent, bounded, auditable, and under your control. Instead of changing itself automatically, Orin proposes improvements to its behavior, skills, and capabilities for your approval."
-            visual={<OrinVisual />}
-          />
+          <a
+            href="https://meridian.neotixhq.com/"
+            className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground border-b border-foreground/30 hover:text-accent hover:border-accent pb-1"
+          >
+            Explore Meridian <span aria-hidden>↗</span>
+          </a>
         </div>
       </div>
     </section>
