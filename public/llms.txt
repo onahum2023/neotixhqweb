@@ -1,9 +1,17 @@
 # NeotixHQ
 
-> An AI-native product studio building cognitive systems that turn fragmented information, conversations, and workflows into structured context and better decisions.
+> An AI-native studio building cognitive systems that turn fragmented information, conversations, and workflows into structured context and better decisions.
 
-NeotixHQ is the umbrella company behind early-stage systems including Meridian (temporal memory) and Augment-Labs (AI-assisted hiring). The site is a single-page manifesto outlining the company's thesis on the cognitive layer of work.
+NeotixHQ is a brand operated by [NuCielo ICT B.V.](https://nucielo.io/). The site outlines the studio's thesis on the cognitive layer of work: Information is abundant. Context is scarce.
+
+[Meridian](https://meridian.neotixhq.com/) is a local-first AI History Explorer by NeotixHQ for importing, analyzing, searching, reading, and exporting ChatGPT, Claude, and Gemini conversation history.
 
 ## Pages
 
-- [Home](/): NeotixHQ vision, principles, studio explorations, and contact.
+- [Home](https://neotixhq.com/): NeotixHQ vision, principles, studio explorations, and contact.
+- [Field Notes](https://neotixhq.com/field-notes): Studio articles and shared posts.
+
+## Related sites
+
+- [NuCielo ICT B.V.](https://nucielo.io/): Operator of the NeotixHQ brand.
+- [Meridian — AI History Explorer](https://meridian.neotixhq.com/): Local-first conversation history exploration by NeotixHQ.
