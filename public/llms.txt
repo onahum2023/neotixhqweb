@@ -11,4 +11,3 @@ Our experience also spans AI strategy, solution architecture, cloud and data pla
 ## Pages
 
 - [Home](https://neotixhq.com/): Studio vision, exploration, Meridian, collaboration, identity, and contact.
-- [Field Notes](https://neotixhq.com/field-notes): Studio journal.
