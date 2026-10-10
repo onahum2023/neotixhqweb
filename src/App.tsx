@@ -1,5 +1,4 @@
 import { Home } from "./pages/Home";
-import { FieldNotes } from "./pages/FieldNotes";
 import { Nav } from "./components/neotix/Nav";
 import { Footer } from "./components/neotix/Footer";
 
@@ -10,7 +9,6 @@ function normalizePath(path: string) {
 export function App({ path }: { path: string }) {
   const route = normalizePath(path);
   if (route === "/") return <Home />;
-  if (route === "/field-notes") return <FieldNotes />;
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Nav />
