@@ -131,11 +131,6 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href="/field-notes" className="hover:text-foreground transition-colors">
-                Field Notes
-              </a>
-            </li>
-            <li>
               <a href="/#contact" className="hover:text-foreground transition-colors">
                 Contact
               </a>
