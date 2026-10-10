@@ -6,7 +6,8 @@ The NeotixHQ public website: an AI-focused studio and brand operated by
 
 ## Local development
 
-Use Node.js 22.12 or later and npm. No environment variables, account, database,
+Use Node.js 22.12 or later and npm. Python 3 is needed only for the HTTP tests.
+No environment variables, account, database,
 or external service credentials are required.
 
 ```sh

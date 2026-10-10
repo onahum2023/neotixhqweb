@@ -24,7 +24,8 @@ function hexPath(cx: number, cy: number, r: number) {
 // Deterministic pseudo-random
 function rand(seed: number) {
   const x = Math.sin(seed * 9301 + 49297) * 233280;
-  return x - Math.floor(x);
+  // Quantize the seed to avoid platform-dependent Math.sin rounding in initial HTML.
+  return Number((x - Math.floor(x)).toFixed(6));
 }
 
 export function SignalConverge() {
